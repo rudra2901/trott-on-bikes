@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "31381343707",
+    "project_id": "learnfirebase-61b73",
+    "storage_bucket": "learnfirebase-61b73.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:31381343707:android:a5fbc2371452dcd0ec6bfe",
+        "android_client_info": {
+          "package_name": "com.example.trottonbikes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "31381343707-lebujm8i6lln9nl5binuk7cjcllb2ah1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.trottonbikes",
+            "certificate_hash": "026c72d7c6d2330592aa9f66c39da8d1bd4f49cb"
+          }
+        },
+        {
+          "client_id": "31381343707-kigmmgn56cc5eokn7ckstd6itn8a6ub1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDD3fNW42_8XMmAS90bsBoF1QWXqbMM6aY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "31381343707-kigmmgn56cc5eokn7ckstd6itn8a6ub1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
