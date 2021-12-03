@@ -7,4 +7,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="grey_signup">#4D7480</color>
+    <color name="dark_grey">#314C55</color>
+    <color name="blue_actionbar">#006EFF</color>
 </resources>
