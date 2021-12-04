@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TrottOnBikes">
         <activity
+            android:name=".BikeActivity"
+            android:label="Welcome"></activity>
+        <activity
             android:name=".SignUpActivity"
             android:label="Sign Up">
             <intent-filter>
@@ -24,9 +27,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".BikeActivity"
-            android:label="Welcome"/>
     </application>
 
 </manifest>
