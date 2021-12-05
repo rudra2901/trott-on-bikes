@@ -17,7 +17,10 @@
         android:theme="@style/Theme.TrottOnBikes">
         <activity
             android:name=".BikeActivity"
-            android:label="Welcome"></activity>
+            android:label="Owner's Name" />
+        <activity
+            android:name=".BikeListActivity"
+            android:label="Owner's Name" />
         <activity
             android:name=".SignUpActivity"
             android:label="Sign Up">
