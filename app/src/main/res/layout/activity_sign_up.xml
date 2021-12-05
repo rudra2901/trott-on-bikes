@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/grey_activity"
     tools:context=".SignUpActivity">
 
     <LinearLayout
@@ -23,30 +24,36 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:autofillHints="Email"
-            android:ems="10"
+            android:ems="15"
             android:hint="Email/Phone Number"
             android:inputType="textEmailAddress"
-            android:padding="20dp" />
+            android:padding="20dp"
+            android:background="@color/white"
+            android:layout_marginVertical="5dp"/>
 
         <EditText
             android:id="@+id/passwordText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            android:ems="10"
+            android:ems="15"
             android:hint="Password"
             android:inputType="textPassword"
-            android:padding="20dp" />
+            android:padding="20dp"
+            android:background="@color/white"
+            android:layout_marginVertical="5dp"/>
 
         <EditText
             android:id="@+id/repeatPasswordText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            android:ems="10"
+            android:ems="15"
             android:hint="Repeat Password"
             android:inputType="textPassword"
-            android:padding="20dp" />
+            android:padding="20dp"
+            android:background="@color/white"
+            android:layout_marginVertical="5dp"/>
 
     </LinearLayout>
 
@@ -63,9 +70,9 @@
 
         <Button
             android:id="@+id/signupButton"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="80dp"
+            android:ems="19"
             android:background="@drawable/round_button"
             android:text="Sign Up" />
 
@@ -74,13 +81,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="OR" />
+            android:text="OR"
+            android:textSize="20sp"
+            android:layout_marginVertical="10dp"/>
 
         <Button
             android:id="@+id/googleSignIn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="80dp"
+            android:ems="19"
             android:background="@drawable/round_button"
             android:text="Sign in with Google" />
 
