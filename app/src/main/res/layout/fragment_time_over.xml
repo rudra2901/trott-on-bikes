@@ -7,7 +7,7 @@
     tools:context=".TimeRemainingFragment">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textViewTimeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="15dp"
@@ -22,11 +22,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/rideButton"
+        app:layout_constraintBottom_toTopOf="@+id/timeOverText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2">
+        app:layout_constraintTop_toBottomOf="@+id/textViewTimeText">
 
         <TextView
             android:id="@+id/hours"
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:text="XX:"
             android:textSize="25sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/minutes"
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:text="YY:"
             android:textSize="25sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/seconds"
@@ -50,34 +50,34 @@
             android:layout_height="wrap_content"
             android:text="ZZ"
             android:textSize="25sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
     </LinearLayout>
 
     <Button
-        android:id="@+id/rideButton"
+        android:id="@+id/payButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/round_button"
         android:ems="19"
-        android:text="Ride Now"
-        app:layout_constraintBottom_toTopOf="@+id/cancelRideButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timeLayout" />
-
-    <Button
-        android:id="@+id/cancelRideButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/round_button"
-        android:ems="19"
-        android:text="Cancel Ride"
+        android:text="Pay"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rideButton" />
+        app:layout_constraintTop_toBottomOf="@+id/timeOverText" />
+
+    <TextView
+        android:id="@+id/timeOverText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sorry, your booking time is over."
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/payButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timeLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
