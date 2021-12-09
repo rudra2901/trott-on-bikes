@@ -13,12 +13,12 @@
         android:layout_marginHorizontal="15dp"
         android:text="Time remaining for ride: "
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/timeLayout"
+        app:layout_constraintBottom_toTopOf="@+id/timeShowText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/timeLayout"
+        android:id="@+id/timeShowText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -42,7 +42,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timeLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/timeShowText" />
 
     <Button
         android:id="@+id/cancelRideButton"

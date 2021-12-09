@@ -15,7 +15,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TrottOnBikes">
-        <activity android:name=".BikeBookedActivity"></activity>
+        <activity
+            android:name=".PaymentDetailsActivity"
+            android:label="Payment Details"/>
+        <activity android:name=".BikeBookedActivity" />
         <activity
             android:name=".BikeActivity"
             android:label="Owner&apos;s Name" />

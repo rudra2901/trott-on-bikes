@@ -7,52 +7,29 @@
     tools:context=".TimeRemainingFragment">
 
     <TextView
-        android:id="@+id/textViewTimeText"
+        android:id="@+id/timeTextMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="15dp"
         android:text="Time remaining for ride: "
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/timeLayout"
+        app:layout_constraintBottom_toTopOf="@+id/timeShowText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/timeLayout"
+    <TextView
+        android:id="@+id/timeShowText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:text="XX:YY:ZZ"
+        android:textSize="25sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/timeOverText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTimeText">
-
-        <TextView
-            android:id="@+id/hours"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="XX:"
-            android:textSize="25sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/minutes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="YY:"
-            android:textSize="25sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/seconds"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ZZ"
-            android:textSize="25sp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/timeTextMessage"/>
 
     <Button
         android:id="@+id/payButton"
@@ -78,6 +55,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timeLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/timeShowText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

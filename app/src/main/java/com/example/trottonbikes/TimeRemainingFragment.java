@@ -11,8 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
@@ -35,9 +33,9 @@ public class TimeRemainingFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_bike_option, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_time_remaining, container, false);
 
-        TextView timeText = rootView.findViewById(R.id.timeLayout);
+        TextView timeText = rootView.findViewById(R.id.timeShowText);
 
         // Time is in millisecond so 50sec = 50000 I have used
         // countdown Interval is 1sec = 1000 I have used
