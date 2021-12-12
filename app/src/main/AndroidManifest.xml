@@ -27,7 +27,8 @@
             android:label="Owner&apos;s Name" />
         <activity
             android:name=".SignUpActivity"
-            android:label="Sign Up">
+            android:label="Sign Up"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
