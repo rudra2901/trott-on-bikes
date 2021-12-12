@@ -12,6 +12,7 @@ public class BikeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bike);
 
+        //TODO: book fragment doesnt work properly, make it scrollable
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.btnFL, new BikeOptionFragment()).commit();
     }
