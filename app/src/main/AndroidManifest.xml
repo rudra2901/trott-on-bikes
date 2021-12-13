@@ -15,9 +15,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TrottOnBikes">
+
+        <activity android:name=".SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name=".PaymentDetailsActivity"
-            android:label="Payment Details"/>
+            android:label="Payment Details" />
         <activity android:name=".BikeBookedActivity" />
         <activity
             android:name=".BikeActivity"
@@ -27,14 +36,11 @@
             android:label="Owner&apos;s Name" />
         <activity
             android:name=".SignUpActivity"
-            android:label="Sign Up"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="true"
+            android:label="Sign Up"/>
+        <activity
+            android:name=".SignInActivity"
+            android:label="Sign In"/>
     </application>
 
 </manifest>
