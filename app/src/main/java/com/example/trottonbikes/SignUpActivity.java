@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.trottonbikes.databinding.ActivitySignUpBinding;
 import com.google.android.gms.auth.api.phone.SmsRetriever;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -37,15 +38,19 @@ public class SignUpActivity extends AppCompatActivity {
     GoogleSignInOptions googleSignInOptions;
     GoogleSignInClient mGoogleSignInClient;
 
+    private ActivitySignUpBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        binding = ActivitySignUpBinding.inflate(getLayoutInflater());
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.grey_signup)));
 
-        setContentView(R.layout.activity_sign_up);
+        View view = binding.getRoot();
+        setContentView(view);
 
         emailView = findViewById(R.id.emailText);
         passwordView = findViewById(R.id.passwordText);
@@ -96,6 +101,13 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 signInWithGoogle();
+            }
+        });
+
+        binding.signInText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SignUpActivity.this ,SignInActivity.class));
             }
         });
     }
