@@ -5,7 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
+import android.widget.TextView;
+
+import com.example.trottonbikes.databinding.BikeListItemBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +38,17 @@ public class BikeViewAdapter extends ArrayAdapter<Bike> {
         assert currentPosition != null;
         bikeImage.setImageResource(R.mipmap.bikeimage);
 
-        return super.getView(position, convertView, parent);
+        TextView name = currentView.findViewById(R.id.ownernameTV);
+        TextView address = currentView.findViewById(R.id.ownerAddTV);
+        RatingBar ratingBar = currentView.findViewById(R.id.ratingBar);
+        Button viewBike = currentView.findViewById(R.id.viewBikeBtn);
+        Button rideBike = currentView.findViewById(R.id.rideBikeBtn);
+        Button bookBike = currentView.findViewById(R.id.bookBikeBtn);
+
+        name.setText(currentPosition.ownersName);
+        address.setText(currentPosition.ownerAddress);
+        ratingBar.setRating(currentPosition.rating);
+
+        return currentView;
     }
 }

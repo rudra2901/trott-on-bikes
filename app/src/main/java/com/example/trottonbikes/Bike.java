@@ -2,17 +2,17 @@ package com.example.trottonbikes;
 
 public class Bike {
     String ownersName, ownerAddress;
-    double rating;
+    float rating;
     String imgUrl;
 
     public Bike() {
         this.ownersName = "owner's Name";
         this.ownerAddress = "owner's Address";
-        this.rating = 4.0;
+        this.rating = 4;
         this.imgUrl = "@mipmap/bikestockimage.png";
     }
 
-    public Bike(String ownersName, String ownerAddress, double rating, String imgUrl) {
+    public Bike(String ownersName, String ownerAddress, float rating, String imgUrl) {
         this.ownersName = ownersName;
         this.ownerAddress = ownerAddress;
         this.rating = rating;
@@ -35,11 +35,11 @@ public class Bike {
         this.ownerAddress = ownerAddress;
     }
 
-    public double getRating() {
+    public float getRating() {
         return rating;
     }
 
-    public void setRating(double rating) {
+    public void setRating(float rating) {
         this.rating = rating;
     }
 

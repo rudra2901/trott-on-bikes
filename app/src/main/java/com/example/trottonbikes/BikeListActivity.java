@@ -40,8 +40,7 @@ public class BikeListActivity extends AppCompatActivity {
 
     private void initialiseBikeList() {
 
-        final ArrayAdapter<Bike> adapter = new ArrayAdapter<Bike>(this, R.layout.bike_list_item,bikeArrayList );
-
+        BikeViewAdapter adapter = new BikeViewAdapter(this, bikeArrayList);
         databaseReference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
