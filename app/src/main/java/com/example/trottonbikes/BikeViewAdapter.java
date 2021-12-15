@@ -31,7 +31,7 @@ public class BikeViewAdapter extends ArrayAdapter<Bike> {
 
         ImageView bikeImage = currentView.findViewById(R.id.bikeListImage);
         assert currentPosition != null;
-        bikeImage.setImageResource(R.mipmap.bikestockimage);
+        bikeImage.setImageResource(R.mipmap.bikeimage);
 
         return super.getView(position, convertView, parent);
     }

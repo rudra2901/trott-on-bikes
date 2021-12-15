@@ -87,7 +87,7 @@
         android:id="@+id/signUpText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Already have an account? Sign in"
+        android:text="Dont have an account? Sign Up"
         android:textColor="@color/link_text_selector"
         app:layout_constraintBottom_toTopOf="@+id/termsText"
         app:layout_constraintEnd_toEndOf="parent"
