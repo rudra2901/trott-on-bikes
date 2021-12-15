@@ -59,6 +59,7 @@ public class SignInActivity extends AppCompatActivity {
         // Configure sign-in to request the user's ID, email address, and basic profile.
         // ID and basic profile are included in DEFAULT_SIGN_IN.
         googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
         // Build a GoogleSignInClient with the options specified by gso.
@@ -132,7 +133,7 @@ public class SignInActivity extends AppCompatActivity {
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mFirebaseAuth.signInWithCredential(credential)
                 .addOnSuccessListener(this, authResult -> {
-                    startActivity(new Intent(SignInActivity.this, BikeActivity.class));
+                    startActivity(new Intent(SignInActivity.this, BikeListActivity.class));
                     finish();
                 })
                 .addOnFailureListener(this, e -> Toast.makeText(SignInActivity.this, "Authentication failed.",

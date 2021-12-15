@@ -138,7 +138,7 @@ public class SignUpActivity extends AppCompatActivity {
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mFirebaseAuth.signInWithCredential(credential)
                 .addOnSuccessListener(this, authResult -> {
-                    startActivity(new Intent(SignUpActivity.this, BikeActivity.class));
+                    startActivity(new Intent(SignUpActivity.this, BikeListActivity.class));
                     finish();
                 })
                 .addOnFailureListener(this, e -> Toast.makeText(SignUpActivity.this, "Authentication failed.",

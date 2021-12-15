@@ -6,8 +6,10 @@
     android:layout_height="wrap_content">
 
     <ImageView
+        android:id="@+id/bikeListImage"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:src="@mipmap/bikestockimage"
         android:layout_weight="0.4"/>
 
     <LinearLayout

@@ -32,8 +32,10 @@ public class BikeListActivity extends AppCompatActivity {
         View view =  binding.getRoot();
         setContentView(view);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference = FirebaseDatabase.getInstance("https://learnfirebase-61b73-default-rtdb.asia-southeast1.firebasedatabase.app").getReference();
         bikeArrayList = new ArrayList<Bike>();
+
+        initialiseBikeList();
     }
 
     private void initialiseBikeList() {
