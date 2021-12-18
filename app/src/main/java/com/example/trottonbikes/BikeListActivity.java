@@ -36,11 +36,15 @@ public class BikeListActivity extends AppCompatActivity {
         bikeArrayList = new ArrayList<Bike>();
 
         initialiseBikeList();
+
+        //TODO: Change progress bar to shimmer view
+        binding.loadingSpinner.setVisibility(View.GONE);
     }
 
     private void initialiseBikeList() {
 
         BikeViewAdapter adapter = new BikeViewAdapter(this, bikeArrayList);
+
         databaseReference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {

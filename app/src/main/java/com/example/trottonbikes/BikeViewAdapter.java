@@ -34,9 +34,9 @@ public class BikeViewAdapter extends ArrayAdapter<Bike> {
 
         Bike currentPosition = getItem(position);
 
-        ImageView bikeImage = currentView.findViewById(R.id.bikeListImage);
+        ///ImageView bikeImage = currentView.findViewById(R.id.bikeListImage);
         assert currentPosition != null;
-        bikeImage.setImageResource(R.mipmap.bikeimage);
+        //bikeImage.setImageResource(R.mipmap.bikeimage);
 
         TextView name = currentView.findViewById(R.id.ownernameTV);
         TextView address = currentView.findViewById(R.id.ownerAddTV);
