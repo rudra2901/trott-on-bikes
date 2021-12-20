@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,115 +8,133 @@
     tools:context=".BikeActivity"
     android:background="@color/grey_activity">
 
-    <ImageView
-        android:id="@+id/bikePic"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="10:9"
-        android:layout_margin="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/descText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/grey_bg"/>
-
-    <LinearLayout
-        android:id="@+id/descText"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingVertical="7dp"
-        android:layout_marginHorizontal="5dp"
-        android:background="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/sizeLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bikePic">
+        android:background="@color/grey_activity">
 
-        <TextView
+        <ImageView
+            android:id="@+id/bikePic"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingHorizontal="20dp"
-            android:text="DESCRIPTION"
-            android:textStyle="bold" />
+            android:layout_height="0dp"
+            android:src="@mipmap/bikeimage"
+            app:layout_constraintDimensionRatio="10:9"
+            android:layout_margin="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@color/grey_bg"/>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginVertical="10dp"
-            android:background="@color/grey_bg" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingHorizontal="20dp"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce convallis pellentesque metus id lacinia. Nunc dapibus pulvinar auctor" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/sizeLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingVertical="7dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginHorizontal="5dp"
-        android:orientation="vertical"
-        android:background="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/btnFL"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/descText">
-
-        <TextView
+        <LinearLayout
+            android:id="@+id/description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="20dp"
-            android:text="SIZE"
-            android:textStyle="bold"/>
+            android:orientation="vertical"
+            android:paddingVertical="7dp"
+            android:layout_marginHorizontal="5dp"
+            android:background="@color/white"
+            app:layout_constraintBottom_toTopOf="@+id/sizeLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bikePic">
 
-        <View
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingHorizontal="20dp"
+                android:text="DESCRIPTION"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginVertical="10dp"
+                android:background="@color/grey_bg" />
+
+            <TextView
+                android:id="@+id/descTV"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingHorizontal="20dp"
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce convallis pellentesque metus id lacinia. Nunc dapibus pulvinar auctor" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/sizeLayout"
             android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginVertical="10dp"
-            android:background="@color/grey_bg" />
-
-        <RadioGroup
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center">
+            android:paddingVertical="7dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginHorizontal="5dp"
+            android:orientation="vertical"
+            android:background="@color/white"
+            app:layout_constraintBottom_toTopOf="@+id/btnFL"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/description">
 
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="20dp"
+                android:text="SIZE"
+                android:textStyle="bold"/>
 
-        </RadioGroup>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginVertical="10dp"
+                android:background="@color/grey_bg" />
 
-    </LinearLayout>
+            <RadioGroup
+                android:id="@+id/sizeRadioGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
 
-    <FrameLayout
-        android:id="@+id/btnFL"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sizeLayout" />
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="S"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="M"/>
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="L"/>
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="XL"/>
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="XXL"/>
+
+            </RadioGroup>
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/btnFL"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sizeLayout" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
