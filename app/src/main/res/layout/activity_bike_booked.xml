@@ -28,6 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="10dp"
+        android:src="@mipmap/bikeimage"
         app:layout_constraintBottom_toTopOf="@+id/bookTimeFL"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
