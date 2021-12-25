@@ -1,6 +1,7 @@
 package com.example.trottonbikes;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +49,15 @@ public class BikeViewAdapter extends ArrayAdapter<Bike> {
         name.setText(currentPosition.ownersName);
         address.setText(currentPosition.ownerAddress);
         ratingBar.setRating(currentPosition.rating);
+
+        viewBike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), BikeActivity.class);
+                intent.putExtra("bikeID", currentPosition.getId());
+                getContext().startActivity(intent);
+            }
+        });
 
         return currentView;
     }

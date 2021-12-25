@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.trottonbikes.databinding.FragmentBikeOptionBinding;
+
 import org.jetbrains.annotations.NotNull;
 
   /**
@@ -19,7 +21,8 @@ import org.jetbrains.annotations.NotNull;
  */
 public class BikeOptionFragment extends Fragment {
 
-    Button buttonBook;
+    Button buttonBook, buttonRide;
+    FragmentBikeOptionBinding binding;
 
     public BikeOptionFragment() {
         // Required empty public constructor
@@ -34,10 +37,10 @@ public class BikeOptionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_bike_option, container, false);
+        binding = FragmentBikeOptionBinding.inflate(inflater, container, false);
+        // View rootView = inflater.inflate(R.layout.fragment_bike_option, container, false);
 
-        buttonBook = rootView.findViewById(R.id.fragmentButtonBook);
-        buttonBook.setOnClickListener(new View.OnClickListener() {
+        binding.fragmentButtonBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
@@ -45,6 +48,6 @@ public class BikeOptionFragment extends Fragment {
             }
         });
 
-        return rootView;
+        return binding.getRoot();
     }
   }
