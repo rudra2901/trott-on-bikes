@@ -46,9 +46,9 @@ public class BikeViewAdapter extends ArrayAdapter<Bike> {
         Button rideBike = currentView.findViewById(R.id.rideBikeBtn);
         Button bookBike = currentView.findViewById(R.id.bookBikeBtn);
 
-        name.setText(currentPosition.ownersName);
-        address.setText(currentPosition.ownerAddress);
-        ratingBar.setRating(currentPosition.rating);
+        name.setText(currentPosition.getOwnersName());
+        address.setText(currentPosition.getOwnerAddress());
+        ratingBar.setRating(currentPosition.getRating());
 
         viewBike.setOnClickListener(new View.OnClickListener() {
             @Override
