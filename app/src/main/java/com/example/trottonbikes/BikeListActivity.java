@@ -32,13 +32,12 @@ public class BikeListActivity extends AppCompatActivity {
         View view =  binding.getRoot();
         setContentView(view);
 
-        databaseReference = FirebaseDatabase.getInstance("https://learnfirebase-61b73-default-rtdb.asia-southeast1.firebasedatabase.app").getReference();
+        databaseReference = FirebaseDatabase.getInstance("https://learnfirebase-61b73-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("bikes");
         bikeArrayList = new ArrayList<Bike>();
 
         initialiseBikeList();
 
         //TODO: Change progress bar to shimmer view
-        binding.loadingSpinner.setVisibility(View.GONE);
     }
 
     private void initialiseBikeList() {
@@ -75,5 +74,7 @@ public class BikeListActivity extends AppCompatActivity {
         });
 
         binding.bikeListView.setAdapter(adapter);
+
+        binding.loadingSpinner.setVisibility(View.GONE);
     }
 }

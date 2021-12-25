@@ -1,6 +1,7 @@
 package com.example.trottonbikes;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -23,7 +24,8 @@ public class BikeActivity extends AppCompatActivity {
     ActivityBikeBinding binding;
     DatabaseReference databaseReference;
     String bikeID;
-    Bike bike;
+    //Bike bike;
+    ActionBar actionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,17 +34,17 @@ public class BikeActivity extends AppCompatActivity {
         View view =  binding.getRoot();
         setContentView(view);
 
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.btnFL, new BikeOptionFragment()).commit();
+        actionBar = getSupportActionBar();
 
         Bundle extras = getIntent().getExtras();
         bikeID = extras.getString("bikeID");
 
-        databaseReference = FirebaseDatabase.getInstance("https://learnfirebase-61b73-default-rtdb.asia-southeast1.firebasedatabase.app").getReference();
+        databaseReference = FirebaseDatabase.getInstance("https://learnfirebase-61b73-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("bikes");
         databaseReference.child(bikeID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                bike = snapshot.getValue(Bike.class);
+                binding.descTV.setText(snapshot.getValue(Bike.class).getDesc());
+                actionBar.setTitle(snapshot.getValue(Bike.class).getOwnersName());
             }
 
             @Override
@@ -51,6 +53,7 @@ public class BikeActivity extends AppCompatActivity {
             }
         });
 
-        binding.descTV.setText(bike.getDesc());
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.btnFL, new BikeOptionFragment()).commit();
     }
 }
