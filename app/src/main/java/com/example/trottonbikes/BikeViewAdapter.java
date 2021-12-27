@@ -58,6 +58,14 @@ public class BikeViewAdapter extends ArrayAdapter<Bike> {
                 getContext().startActivity(intent);
             }
         });
+        rideBike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), RideMapsActivity.class);
+                intent.putExtra("bikeID", currentPosition.getId());
+                getContext().startActivity(intent);
+            }
+        });
 
         return currentView;
     }

@@ -1,5 +1,6 @@
   package com.example.trottonbikes;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -45,6 +46,12 @@ public class BikeOptionFragment extends Fragment {
             public void onClick(View v) {
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.btnFL, new BikeBookFragment()).commit();
+            }
+        });
+        binding.fragmentButtonRide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), RideMapsActivity.class));
             }
         });
 
