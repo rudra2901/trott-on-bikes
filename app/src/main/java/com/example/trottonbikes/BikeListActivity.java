@@ -24,7 +24,7 @@ public class BikeListActivity extends AppCompatActivity {
     ArrayList<Bike> bikeArrayList;
     ActivityBikeListBinding binding;
 
-    DatabaseReference databaseReference;
+    private DatabaseReference databaseReference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +32,8 @@ public class BikeListActivity extends AppCompatActivity {
         View view =  binding.getRoot();
         setContentView(view);
 
-        databaseReference = FirebaseDatabase.getInstance("https://learnfirebase-61b73-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("bikes");
+        databaseReference = FirebaseDatabase.getInstance("https://learnfirebase-61b73-default-rtdb.asia-southeast1.firebasedatabase.app").
+                getReference("bikes");
         bikeArrayList = new ArrayList<Bike>();
 
         initialiseBikeList();
