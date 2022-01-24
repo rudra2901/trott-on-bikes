@@ -127,7 +127,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/round_button"
         android:ems="19"
-        android:text="Sign Up"
+        android:text="Upload Bike"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
