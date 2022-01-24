@@ -8,7 +8,12 @@ import android.os.Handler;
 import android.view.WindowManager;
 import android.window.SplashScreen;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class SplashActivity extends AppCompatActivity {
+
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +24,15 @@ public class SplashActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_splash);
 
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        if(currentUser == null)
+            startActivity(new Intent(SplashActivity.this, SignUpActivity.class));
+        else
+            startActivity(new Intent(SplashActivity.this, BikeListActivity.class));
+
+        /*
         int SPLASH_SCREEN_TIME_OUT = 1000;
         new Handler().postDelayed(() -> {
             Intent i;
@@ -28,5 +42,6 @@ public class SplashActivity extends AppCompatActivity {
             //invoke the SecondActivity.
             finish();
         }, SPLASH_SCREEN_TIME_OUT);
+         */
     }
 }
