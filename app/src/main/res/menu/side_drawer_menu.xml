@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/nav_item_register_bike"
+        android:title="Register my bicycle" />
+    <item android:id="@+id/nav_item_profile"
+        android:title="My Profile" />
+    <item android:id="@+id/nav_item_settings"
+        android:title="Settings" />
+    <item android:id="@+id/nav_item_log_out"
+        android:title="Log Out" />
+</menu>
