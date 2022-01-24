@@ -27,6 +27,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import java.util.regex.Pattern;
+
 public class SignUpActivity extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 1234;
@@ -52,12 +54,6 @@ public class SignUpActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
-        emailView = findViewById(R.id.emailText);
-        passwordView = findViewById(R.id.passwordText);
-        repeatPasswordView = findViewById(R.id.repeatPasswordText);
-        signUp = findViewById(R.id.signupButton);
-        googleSignIn = findViewById(R.id.googleSignIn);
-
         mFirebaseAuth = FirebaseAuth.getInstance();
 
         // Configure sign-in to request the user's ID, email address, and basic profile.
@@ -69,30 +65,46 @@ public class SignUpActivity extends AppCompatActivity {
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions);
 
-        signUp.setOnClickListener(new View.OnClickListener() {
+        binding.signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = emailView.getText().toString();
-                String pwd = passwordView.getText().toString();
+                String email = binding.emailText.getText().toString();
+                String pwd = binding.passwordText.getText().toString();
+                String rPwd = binding.repeatPasswordText.getText().toString();
                 if (email.isEmpty()) {
-                    emailView.setError("Please provide your email");
-                    emailView.requestFocus();
+                    binding.emailText.setError("Please provide your email");
+                    binding.emailText.requestFocus();
 
                 } else if (pwd.isEmpty()) {
-                    passwordView.setError("Please enter your password");
-                    passwordView.requestFocus();
-                } else {
-                    mFirebaseAuth.createUserWithEmailAndPassword(email, pwd).addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (!task.isSuccessful()) {
-                                Toast.makeText(SignUpActivity.this, "Oops! Sign up unsuccessful, please try again. ", Toast.LENGTH_SHORT).show();
+                    binding.passwordText.setError("Please enter your password");
+                    binding.passwordText.requestFocus();
 
-                            } else {
-                                startActivity(new Intent(SignUpActivity.this, BikeListActivity.class));
+                } else if(rPwd.isEmpty()){
+                    binding.repeatPasswordText.setError("Please confirm password");
+                    binding.repeatPasswordText.requestFocus();
+
+                } else if(!pwd.equals(rPwd)) {
+                    Toast.makeText(SignUpActivity.this, "Passwords dont match! Please try again", Toast.LENGTH_SHORT).show();
+                    binding.passwordText.requestFocus();
+
+                } else {
+                    //TODO: Add phone number with password login system
+                    if (!isValidEmailId(email)) {
+                        binding.emailText.setError("Please provide correct email");
+                        binding.emailText.requestFocus();
+                    } else {
+                        mFirebaseAuth.createUserWithEmailAndPassword(email, pwd).addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (!task.isSuccessful()) {
+                                    Toast.makeText(SignUpActivity.this, "Oops! Sign up unsuccessful, please try again. ", Toast.LENGTH_SHORT).show();
+
+                                } else {
+                                    startActivity(new Intent(SignUpActivity.this, BikeListActivity.class));
+                                }
                             }
-                        }
-                    });
+                        });
+                    }
                 }
             }
         });
@@ -143,5 +155,16 @@ public class SignUpActivity extends AppCompatActivity {
                 })
                 .addOnFailureListener(this, e -> Toast.makeText(SignUpActivity.this, "Authentication failed.",
                         Toast.LENGTH_SHORT).show());
+    }
+
+    private static boolean isValidPhoneNumber(String mobile) {
+        String regEx = "^[0-9]{11,12}$";
+        return mobile.matches(regEx);
+    }
+
+    private boolean isValidEmailId(String email){
+        String emailRegEx = "^[A-Za-z0-9._%+\\-]+@[A-Za-z0-9.\\-]+\\.[A-Za-z]{2,4}$";
+
+        return Pattern.compile(emailRegEx).matcher(email).matches();
     }
 }

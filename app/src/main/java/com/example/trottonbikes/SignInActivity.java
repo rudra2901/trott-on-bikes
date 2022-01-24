@@ -18,9 +18,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 import androidx.annotation.NonNull;
@@ -79,18 +81,17 @@ public class SignInActivity extends AppCompatActivity {
                     passwordView.setError("Please enter your password");
                     passwordView.requestFocus();
                 } else {
-                    mFirebaseAuth.createUserWithEmailAndPassword(email, pwd).addOnCompleteListener(SignInActivity.this, new OnCompleteListener<AuthResult>() {
+                    mFirebaseAuth.signInWithEmailAndPassword(email, pwd).addOnCompleteListener(SignInActivity.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (!task.isSuccessful()) {
                                 Toast.makeText(SignInActivity.this, "Oops! Sign up unsuccessful, please try again. ", Toast.LENGTH_SHORT).show();
 
                             } else {
+                                //FirebaseUser user = mFirebaseAuth.getCurrentUser();
                                 startActivity(new Intent(SignInActivity.this, BikeListActivity.class));
                             }
                         }
-
-
                     });
                 }
             }
