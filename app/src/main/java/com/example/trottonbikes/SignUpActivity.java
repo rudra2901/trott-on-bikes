@@ -109,7 +109,7 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
-        googleSignIn.setOnClickListener(new View.OnClickListener() {
+        binding.googleSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 signInWithGoogle();
