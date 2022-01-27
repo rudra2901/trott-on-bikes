@@ -4,13 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.view.SupportActionModeWrapper;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.trottonbikes.databinding.ActivityBikeBinding;
 import com.google.android.material.navigation.NavigationView;
@@ -23,13 +23,14 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.jetbrains.annotations.NotNull;
 
-public class BikeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class BikeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     ActivityBikeBinding binding;
     DatabaseReference databaseReference;
     String bikeID;
     //Bike bike;
     ActionBar actionBar;
+    ActionBarDrawerToggle toggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +40,7 @@ public class BikeActivity extends AppCompatActivity implements NavigationView.On
         setContentView(view);
 
         actionBar = getSupportActionBar();
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, binding.drawerLayout, R.string.open, R.string.close);
+        toggle = new ActionBarDrawerToggle(this, binding.drawerLayout, R.string.open, R.string.close);
         binding.drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         binding.navView.setNavigationItemSelectedListener(this);
@@ -67,15 +68,26 @@ public class BikeActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if (toggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem item) {
         if(item.getItemId() == R.id.nav_item_log_out) {
             FirebaseAuth.getInstance().signOut();
             startActivity(new Intent(BikeActivity.this,SignInActivity.class));
         } else if(item.getItemId() == R.id.nav_item_profile) {
             //TODO: make a profile page
+            Toast.makeText(BikeActivity.this, "Opening Profile Page", Toast.LENGTH_SHORT).show();
             //startActivity(new Intent(AvailableSlotActivity.this,ChangePinPopupActivity.class));
         } else if(item.getItemId() == R.id.nav_item_settings) {
             //TODO: make a settings page
+            Toast.makeText(BikeActivity.this, "Opening Settings Page", Toast.LENGTH_SHORT).show();
             //startActivity(new Intent(AvailableSlotActivity.this,ChangePinPopupActivity.class));
         } else if(item.getItemId() == R.id.nav_item_register_bike) {
             startActivity(new Intent(BikeActivity.this,RegisterBikeActivity.class));
