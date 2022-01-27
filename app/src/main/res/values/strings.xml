@@ -4,4 +4,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_ride_maps">Ride Bike</string>
     <string name="loremString">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce convallis pellentesque metus id lacinia. Nunc dapibus pulvinar auctor</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
 </resources>
