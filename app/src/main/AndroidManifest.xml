@@ -24,6 +24,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TrottOnBikes">
         <activity
+            android:name=".ProfilePageActivity"
+            android:exported="false" />
+        <activity
             android:name=".RegisterBikeActivity"
             android:exported="false" />
         <!--

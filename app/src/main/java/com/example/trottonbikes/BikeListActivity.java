@@ -109,16 +109,20 @@ public class BikeListActivity extends AppCompatActivity implements NavigationVie
         if(item.getItemId() == R.id.nav_item_log_out) {
             FirebaseAuth.getInstance().signOut();
             startActivity(new Intent(BikeListActivity.this,SignInActivity.class));
+
         } else if(item.getItemId() == R.id.nav_item_profile) {
-            //TODO: make a profile page
-            Toast.makeText(BikeListActivity.this, "Opening Profile Page", Toast.LENGTH_SHORT).show();
-            //startActivity(new Intent(AvailableSlotActivity.this,ChangePinPopupActivity.class));
+            startActivity(new Intent(BikeListActivity.this, ProfilePageActivity.class));
+
         } else if(item.getItemId() == R.id.nav_item_settings) {
             //TODO: make a settings page
             Toast.makeText(BikeListActivity.this, "Opening Settings Page", Toast.LENGTH_SHORT).show();
-            //startActivity(new Intent(AvailableSlotActivity.this,ChangePinPopupActivity.class));
+
         } else if(item.getItemId() == R.id.nav_item_register_bike) {
             startActivity(new Intent(BikeListActivity.this,RegisterBikeActivity.class));
+
+        } else if(item.getItemId() == R.id.nav_item_home) {
+            Toast.makeText(BikeListActivity.this, "Already in Home Page", Toast.LENGTH_SHORT).show();
+
         }
         return false;
     }
