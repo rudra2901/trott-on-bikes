@@ -81,16 +81,17 @@ public class BikeActivity extends AppCompatActivity implements NavigationView.On
         if(item.getItemId() == R.id.nav_item_log_out) {
             FirebaseAuth.getInstance().signOut();
             startActivity(new Intent(BikeActivity.this,SignInActivity.class));
+
         } else if(item.getItemId() == R.id.nav_item_profile) {
-            //TODO: make a profile page
-            Toast.makeText(BikeActivity.this, "Opening Profile Page", Toast.LENGTH_SHORT).show();
-            //startActivity(new Intent(AvailableSlotActivity.this,ChangePinPopupActivity.class));
+            startActivity(new Intent(BikeActivity.this,ProfilePageActivity.class));
+
         } else if(item.getItemId() == R.id.nav_item_settings) {
             //TODO: make a settings page
             Toast.makeText(BikeActivity.this, "Opening Settings Page", Toast.LENGTH_SHORT).show();
-            //startActivity(new Intent(AvailableSlotActivity.this,ChangePinPopupActivity.class));
+
         } else if(item.getItemId() == R.id.nav_item_register_bike) {
             startActivity(new Intent(BikeActivity.this,RegisterBikeActivity.class));
+
         }
         return false;
     }
