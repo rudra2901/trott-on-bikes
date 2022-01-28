@@ -120,6 +120,9 @@ public class BikeListActivity extends AppCompatActivity implements NavigationVie
         } else if(item.getItemId() == R.id.nav_item_register_bike) {
             startActivity(new Intent(BikeListActivity.this,RegisterBikeActivity.class));
 
+        } else if(item.getItemId() == R.id.nav_item_home) {
+            Toast.makeText(BikeListActivity.this, "Already in Home Page", Toast.LENGTH_SHORT).show();
+
         }
         return false;
     }

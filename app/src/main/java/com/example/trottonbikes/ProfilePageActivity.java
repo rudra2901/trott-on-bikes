@@ -128,6 +128,9 @@ public class ProfilePageActivity extends AppCompatActivity implements Navigation
         } else if(item.getItemId() == R.id.nav_item_register_bike) {
             startActivity(new Intent(ProfilePageActivity.this,RegisterBikeActivity.class));
 
+        } else if(item.getItemId() == R.id.nav_item_home) {
+            startActivity(new Intent(ProfilePageActivity.this,BikeListActivity.class));
+
         }
         return false;
     }

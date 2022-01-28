@@ -92,6 +92,9 @@ public class BikeActivity extends AppCompatActivity implements NavigationView.On
         } else if(item.getItemId() == R.id.nav_item_register_bike) {
             startActivity(new Intent(BikeActivity.this,RegisterBikeActivity.class));
 
+        } else if(item.getItemId() == R.id.nav_item_home) {
+            startActivity(new Intent(BikeActivity.this,BikeListActivity.class));
+
         }
         return false;
     }
