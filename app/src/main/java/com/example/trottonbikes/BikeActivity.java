@@ -27,8 +27,8 @@ public class BikeActivity extends AppCompatActivity implements NavigationView.On
 
     ActivityBikeBinding binding;
     DatabaseReference databaseReference;
-    String bikeID;
-    //Bike bike;
+
+    Bike bike;
     ActionBar actionBar;
     ActionBarDrawerToggle toggle;
 
@@ -46,22 +46,11 @@ public class BikeActivity extends AppCompatActivity implements NavigationView.On
         binding.navView.setNavigationItemSelectedListener(this);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        Bundle extras = getIntent().getExtras();
-        bikeID = extras.getString("bikeID");
+        bike = getIntent().getParcelableExtra("bike");
 
-        databaseReference = FirebaseDatabase.getInstance("https://learnfirebase-61b73-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("bikes");
-        databaseReference.child(bikeID).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                binding.descTV.setText(snapshot.getValue(Bike.class).getDesc());
-                actionBar.setTitle(snapshot.getValue(Bike.class).getOwnersName());
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+        binding.descTV.setText(bike.getDesc());
+        actionBar.setTitle(bike.getOwnersName());
+        binding.bikePic.setImageResource(R.mipmap.bikeimage);
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.btnFL, new BikeOptionFragment()).commit();

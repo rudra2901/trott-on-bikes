@@ -26,6 +26,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -42,6 +45,7 @@ public class RegisterBikeActivity extends AppCompatActivity implements Navigatio
     private DatabaseReference databaseReference;
     FirebaseStorage storage;
     StorageReference storageRef;
+    FirebaseFirestore firestore;
 
     private long bikeCount = 0;
     private final int PICK_IMAGE_REQUEST = 22;
@@ -68,16 +72,7 @@ public class RegisterBikeActivity extends AppCompatActivity implements Navigatio
                 getReference("bikes");
         storage = FirebaseStorage.getInstance();
         storageRef = storage.getReference().child("bikes");
-
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                bikeCount = snapshot.getChildrenCount();
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
+        firestore = FirebaseFirestore.getInstance();
 
         binding.uploadPic.setOnClickListener(v -> selectImage());
 
@@ -91,8 +86,10 @@ public class RegisterBikeActivity extends AppCompatActivity implements Navigatio
                 Toast.makeText(RegisterBikeActivity.this, "Please upload a picture", Toast.LENGTH_LONG).show();
 
             } else {
-                bikeCount++;
-                String id = databaseReference.push().getKey();
+                CollectionReference availableReference = firestore.collection("available");
+                DocumentReference documentReference = availableReference.document();
+
+                String id = documentReference.getId();
                 String imgUrl = uploadImage(id);
 
                 FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -107,6 +104,18 @@ public class RegisterBikeActivity extends AppCompatActivity implements Navigatio
 
                 Bike bike = new Bike(id, ownersName, ownerAddress, desc, rating, imgUrl);
                 databaseReference.child(id).setValue(bike);
+
+                documentReference.set(bike).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Toast.makeText(RegisterBikeActivity.this, "Bike Uploaded", Toast.LENGTH_LONG).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(RegisterBikeActivity.this, "Error uploading bike! Try again later", Toast.LENGTH_LONG).show();
+                    }
+                });
 
                 startActivity(new Intent(RegisterBikeActivity.this, BikeListActivity.class));
             }

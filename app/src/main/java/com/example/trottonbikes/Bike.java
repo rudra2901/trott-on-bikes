@@ -1,6 +1,9 @@
 package com.example.trottonbikes;
 
-public class Bike {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Bike implements Parcelable {
     String id;
     String ownersName, ownerAddress;
     String desc;
@@ -24,6 +27,27 @@ public class Bike {
         this.rating = rating;
         this.imgUrl = imgUrl;
     }
+
+    protected Bike(Parcel in) {
+        id = in.readString();
+        ownersName = in.readString();
+        ownerAddress = in.readString();
+        desc = in.readString();
+        rating = in.readFloat();
+        imgUrl = in.readString();
+    }
+
+    public static final Creator<Bike> CREATOR = new Creator<Bike>() {
+        @Override
+        public Bike createFromParcel(Parcel in) {
+            return new Bike(in);
+        }
+
+        @Override
+        public Bike[] newArray(int size) {
+            return new Bike[size];
+        }
+    };
 
     public String getId() {
         return id;
@@ -71,5 +95,20 @@ public class Bike {
 
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(ownersName);
+        dest.writeString(ownerAddress);
+        dest.writeString(desc);
+        dest.writeFloat(rating);
+        dest.writeString(imgUrl);
     }
 }
