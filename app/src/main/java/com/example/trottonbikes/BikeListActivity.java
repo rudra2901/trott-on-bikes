@@ -5,12 +5,15 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.NestedScrollView;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.trottonbikes.databinding.ActivityBikeListBinding;
@@ -21,6 +24,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -34,6 +38,11 @@ public class BikeListActivity extends AppCompatActivity implements NavigationVie
     ActionBar actionBar;
     ActionBarDrawerToggle toggle;
     private DatabaseReference databaseReference;
+    FirebaseFirestore db;
+
+    int count = 0;
+    BikeAdapter bikeAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +59,8 @@ public class BikeListActivity extends AppCompatActivity implements NavigationVie
 
         databaseReference = FirebaseDatabase.getInstance("https://learnfirebase-61b73-default-rtdb.asia-southeast1.firebasedatabase.app").
                 getReference("bikes");
+        db = FirebaseFirestore.getInstance();
+
         bikeArrayList = new ArrayList<Bike>();
 
         initialiseBikeList();
@@ -59,7 +70,7 @@ public class BikeListActivity extends AppCompatActivity implements NavigationVie
 
     private void initialiseBikeList() {
 
-        BikeViewAdapter adapter = new BikeViewAdapter(this, bikeArrayList);
+        BikeAdapter adapter = new BikeAdapter(this, bikeArrayList);
 
         databaseReference.addChildEventListener(new ChildEventListener() {
             @Override
@@ -90,9 +101,33 @@ public class BikeListActivity extends AppCompatActivity implements NavigationVie
             }
         });
 
+        LinearLayoutManager manager = new LinearLayoutManager(this);
+        binding.bikeListView.setLayoutManager(manager);
+
         binding.bikeListView.setAdapter(adapter);
 
-        binding.loadingSpinner.setVisibility(View.GONE);
+        binding.progressBarList.setVisibility(View.GONE);
+
+        /*
+        binding.nestedSV.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                // on scroll change we are checking when users scroll as bottom.
+                if (scrollY == v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight()) {
+                    // in this method we are incrementing page number,
+                    // making progress bar visible and calling get data method.
+                    count++;
+                    // on below line we are making our progress bar visible.
+                    binding.progressBarList.setVisibility(View.VISIBLE);
+                    if (count < 20) {
+                        // on below line we are again calling
+                        //TODO: a method to load data in our array list.
+                        //getData();
+                    }
+                }
+            }
+        });
+         */
     }
 
     @Override
