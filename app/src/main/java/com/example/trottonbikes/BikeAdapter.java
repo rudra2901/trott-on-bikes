@@ -57,8 +57,8 @@ public class BikeAdapter extends RecyclerView.Adapter<BikeAdapter.ViewHolder> {
         // TODO: we are using Picasso/glide to load images
         // from URL inside our image view.
         StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-        StorageReference pathRef = storageReference.child("bike/"+currentBike.getId());
-        Glide.with(context).load(pathRef).centerCrop().into(holder.binding.bikeListImage);
+        StorageReference pathRef = storageReference.child("bikes").child(currentBike.getId());
+        GlideApp.with(context).load(pathRef).centerCrop().into(holder.binding.bikeListImage);
     }
 
     @Override
