@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.trottonbikes.databinding.ActivityBikeBinding;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,6 +21,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -27,8 +30,8 @@ public class BikeActivity extends AppCompatActivity implements NavigationView.On
 
     ActivityBikeBinding binding;
     DatabaseReference databaseReference;
-    String bikeID;
-    //Bike bike;
+
+    Bike bike;
     ActionBar actionBar;
     ActionBarDrawerToggle toggle;
 
@@ -46,22 +49,15 @@ public class BikeActivity extends AppCompatActivity implements NavigationView.On
         binding.navView.setNavigationItemSelectedListener(this);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        Bundle extras = getIntent().getExtras();
-        bikeID = extras.getString("bikeID");
+        bike = getIntent().getParcelableExtra("bike");
 
-        databaseReference = FirebaseDatabase.getInstance("https://learnfirebase-61b73-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("bikes");
-        databaseReference.child(bikeID).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                binding.descTV.setText(snapshot.getValue(Bike.class).getDesc());
-                actionBar.setTitle(snapshot.getValue(Bike.class).getOwnersName());
-            }
+        binding.descTV.setText(bike.getDesc());
+        actionBar.setTitle(bike.getOwnersName());
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+        StorageReference pathRef = storageReference.child("bike/"+bike.getId());
 
-            }
-        });
+        Glide.with(this).load(pathRef).centerCrop().into(binding.bikePic);
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.btnFL, new BikeOptionFragment()).commit();
