@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.trottonbikes.databinding.ActivityBikeBinding;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -55,9 +57,9 @@ public class BikeActivity extends AppCompatActivity implements NavigationView.On
         actionBar.setTitle(bike.getOwnersName());
 
         StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-        StorageReference pathRef = storageReference.child("bike/"+bike.getId());
+        StorageReference pathRef = storageReference.child("bikes").child(bike.getId());
 
-        Glide.with(this).load(pathRef).centerCrop().into(binding.bikePic);
+        GlideApp.with(this).load(pathRef).centerCrop().into(binding.bikePic);
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.btnFL, new BikeOptionFragment()).commit();
