@@ -103,6 +103,8 @@ public class RegisterBikeActivity extends AppCompatActivity implements Navigatio
                 float rating = 0.0f;
 
                 Bike bike = new Bike(id, ownersName, ownerAddress, desc, rating, imgUrl);
+
+                //TODO: Remove this to stop adding value to realtime database after showing data from firestore
                 databaseReference.child(id).setValue(bike);
 
                 documentReference.set(bike).addOnSuccessListener(new OnSuccessListener<Void>() {

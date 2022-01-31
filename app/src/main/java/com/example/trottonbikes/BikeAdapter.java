@@ -7,7 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
 import com.example.trottonbikes.databinding.BikeListItemBinding;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
@@ -53,7 +56,9 @@ public class BikeAdapter extends RecyclerView.Adapter<BikeAdapter.ViewHolder> {
 
         // TODO: we are using Picasso/glide to load images
         // from URL inside our image view.
-        //Picasso.get().load(modal.getImgUrl()).into(holder.courseIV);
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+        StorageReference pathRef = storageReference.child("bike/"+currentBike.getId());
+        Glide.with(context).load(pathRef).centerCrop().into(holder.binding.bikeListImage);
     }
 
     @Override
