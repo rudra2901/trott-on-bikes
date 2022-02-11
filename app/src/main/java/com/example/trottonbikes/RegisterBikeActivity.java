@@ -47,7 +47,6 @@ public class RegisterBikeActivity extends AppCompatActivity implements Navigatio
     StorageReference storageRef;
     FirebaseFirestore firestore;
 
-    private long bikeCount = 0;
     private final int PICK_IMAGE_REQUEST = 22;
     private Uri filePath;
 
@@ -78,9 +77,14 @@ public class RegisterBikeActivity extends AppCompatActivity implements Navigatio
 
         binding.uploadBikeButton.setOnClickListener(v -> {
             String desc = binding.descETV.getText().toString();
+            String code = binding.codeET.getText().toString();
             if(desc.isEmpty()) {
                 binding.descETV.setError("Please enter a description");
                 binding.descETV.requestFocus();
+
+            } else if(code.isEmpty()) {
+                Toast.makeText(RegisterBikeActivity.this, "Please enter the lock code!", Toast.LENGTH_SHORT).show();
+                binding.codeET.requestFocus();
 
             } else if(filePath == null) {
                 Toast.makeText(RegisterBikeActivity.this, "Please upload a picture", Toast.LENGTH_LONG).show();
@@ -102,7 +106,7 @@ public class RegisterBikeActivity extends AppCompatActivity implements Navigatio
 
                 float rating = 0.0f;
 
-                Bike bike = new Bike(id, ownersName, ownerAddress, desc, rating, imgUrl);
+                Bike bike = new Bike(id, ownersName, ownerAddress, desc, rating, imgUrl, code);
 
                 //TODO: Remove this to stop adding value to realtime database after showing data from firestore
                 databaseReference.child(id).setValue(bike);

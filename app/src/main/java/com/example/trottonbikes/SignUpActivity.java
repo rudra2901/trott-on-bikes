@@ -33,9 +33,6 @@ public class SignUpActivity extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 1234;
 
-    EditText emailView, passwordView, repeatPasswordView;
-    Button signUp, googleSignIn;
-
     FirebaseAuth mFirebaseAuth;
     GoogleSignInOptions googleSignInOptions;
     GoogleSignInClient mGoogleSignInClient;
@@ -69,8 +66,8 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String email = binding.emailText.getText().toString();
-                String pwd = binding.passwordText.getText().toString();
-                String rPwd = binding.repeatPasswordText.getText().toString();
+                String pwd = binding.passwordText.getEditText().getText().toString();
+                String rPwd = binding.repeatPasswordText.getEditText().getText().toString();
                 if (email.isEmpty()) {
                     binding.emailText.setError("Please provide your email");
                     binding.emailText.requestFocus();
@@ -84,7 +81,7 @@ public class SignUpActivity extends AppCompatActivity {
                     binding.repeatPasswordText.requestFocus();
 
                 } else if(!pwd.equals(rPwd)) {
-                    Toast.makeText(SignUpActivity.this, "Passwords dont match! Please try again", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUpActivity.this, "Passwords don't match! Please try again", Toast.LENGTH_SHORT).show();
                     binding.passwordText.requestFocus();
 
                 } else {

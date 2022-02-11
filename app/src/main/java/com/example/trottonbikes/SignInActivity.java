@@ -33,9 +33,6 @@ public class SignInActivity extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 1234;
 
-    EditText emailView, passwordView;
-    Button signUp, googleSignIn;
-
     FirebaseAuth mFirebaseAuth;
     GoogleSignInOptions googleSignInOptions;
     GoogleSignInClient mGoogleSignInClient;
@@ -52,11 +49,6 @@ public class SignInActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
-        emailView = findViewById(R.id.emailText);
-        passwordView = findViewById(R.id.passwordText);
-        signUp = findViewById(R.id.signupButton);
-        googleSignIn = findViewById(R.id.googleSignIn);
-
         mFirebaseAuth = FirebaseAuth.getInstance();
         // Configure sign-in to request the user's ID, email address, and basic profile.
         // ID and basic profile are included in DEFAULT_SIGN_IN.
@@ -68,18 +60,18 @@ public class SignInActivity extends AppCompatActivity {
         mGoogleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions);
 
         //TODO: Set Sign In method
-        signUp.setOnClickListener(new View.OnClickListener() {
+        binding.signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = emailView.getText().toString();
-                String pwd = passwordView.getText().toString();
+                String email = binding.emailText.getText().toString();
+                String pwd = binding.passwordText.getEditText().getText().toString();
                 if (email.isEmpty()) {
-                    emailView.setError("Please provide your email");
-                    emailView.requestFocus();
+                    binding.emailText.setError("Please provide your email");
+                    binding.emailText.requestFocus();
 
                 } else if (pwd.isEmpty()) {
-                    passwordView.setError("Please enter your password");
-                    passwordView.requestFocus();
+                    binding.passwordText.setError("Please enter your password");
+                    binding.passwordText.requestFocus();
                 } else {
                     mFirebaseAuth.signInWithEmailAndPassword(email, pwd).addOnCompleteListener(SignInActivity.this, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -97,7 +89,7 @@ public class SignInActivity extends AppCompatActivity {
             }
         });
 
-        googleSignIn.setOnClickListener(new View.OnClickListener() {
+        binding.googleSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 signInWithGoogle();
