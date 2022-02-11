@@ -73,7 +73,10 @@ public class BikeOptionFragment extends Fragment {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         if(documentSnapshot.exists()) {
-                            startActivity(new Intent(getContext(), RideMapsActivity.class));
+                            Bike currentBike = documentSnapshot.toObject(Bike.class);
+                            Intent intent = new Intent(getContext(), RideMapsActivity.class);
+                            intent.putExtra("bike", currentBike);
+                            startActivity(intent);
                         }
                         else {
                             Toast.makeText(getActivity(), "Sorry! The bike has been already booked!", Toast.LENGTH_LONG).show();

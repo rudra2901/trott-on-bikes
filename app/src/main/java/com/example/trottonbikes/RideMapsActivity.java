@@ -20,6 +20,8 @@ public class RideMapsActivity extends FragmentActivity implements OnMapReadyCall
     private GoogleMap mMap;
     ActivityRideMapsBinding binding;
 
+    Bike bike;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,13 +30,23 @@ public class RideMapsActivity extends FragmentActivity implements OnMapReadyCall
         View view = binding.getRoot();
         setContentView(view);
 
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.detailsFL, new RideDetailsFragment()).commit();
+        bike = getIntent().getParcelableExtra("bike");
+
+        RideDetailsFragment fragment = new RideDetailsFragment();
+        Bundle bundle = new Bundle();
+        String id = bike.getId();
+        bundle.putString("id", id);
+        String code = bike.getCode();
+        bundle.putString("code", code);
+        fragment.setArguments(bundle);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.add(R.id.detailsFL, fragment).commit();
     }
 
     /**

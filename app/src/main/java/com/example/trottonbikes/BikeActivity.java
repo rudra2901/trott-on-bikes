@@ -31,7 +31,6 @@ import org.jetbrains.annotations.NotNull;
 public class BikeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     ActivityBikeBinding binding;
-    DatabaseReference databaseReference;
 
     Bike bike;
     ActionBar actionBar;
