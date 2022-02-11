@@ -61,8 +61,13 @@ public class BikeActivity extends AppCompatActivity implements NavigationView.On
 
         GlideApp.with(this).load(pathRef).centerCrop().into(binding.bikePic);
 
+        BikeOptionFragment fragment = new BikeOptionFragment();
+        Bundle bundle = new Bundle();
+        String id = bike.getId();
+        bundle.putString("id", id);
+        fragment.setArguments(bundle);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.btnFL, new BikeOptionFragment()).commit();
+        fragmentTransaction.add(R.id.btnFL, fragment).commit();
     }
 
     @Override

@@ -49,7 +49,6 @@ public class BikeListActivity extends AppCompatActivity implements NavigationVie
 
     ActionBar actionBar;
     ActionBarDrawerToggle toggle;
-    private DatabaseReference databaseReference;
     FirebaseFirestore db;
     LinearLayoutManager manager;
     DocumentSnapshot lastVisible;
@@ -74,8 +73,6 @@ public class BikeListActivity extends AppCompatActivity implements NavigationVie
         binding.navView.setNavigationItemSelectedListener(this);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        databaseReference = FirebaseDatabase.getInstance("https://learnfirebase-61b73-default-rtdb.asia-southeast1.firebasedatabase.app").
-                getReference("bikes");
         db = FirebaseFirestore.getInstance();
 
         bikeArrayList = new ArrayList<Bike>();
