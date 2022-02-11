@@ -82,7 +82,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="20dp"
-                android:text="SIZE"
+                android:text="LOCK CODE "
                 android:textStyle="bold" />
 
             <View
@@ -91,39 +91,15 @@
                 android:layout_marginVertical="10dp"
                 android:background="@color/grey_bg" />
 
-            <RadioGroup
-                android:id="@+id/sizeRadioGroup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="horizontal">
-
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="S" />
-
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="M" />
-
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="L" />
-
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="XL" />
-
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="XXL" />
-
-            </RadioGroup>
+            <EditText
+                android:id="@+id/codeET"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingHorizontal="20dp"
+                android:text="1234"
+                android:textAlignment="center"
+                android:inputType="numberPassword"
+                android:textSize="15sp" />
 
         </LinearLayout>
 
