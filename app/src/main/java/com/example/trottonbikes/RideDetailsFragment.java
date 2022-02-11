@@ -8,12 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.trottonbikes.databinding.FragmentRideDetailsBinding;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link RideDetailsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
 public class RideDetailsFragment extends Fragment {
+
+    FragmentRideDetailsBinding binding;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -59,6 +63,13 @@ public class RideDetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_ride_details, container, false);
+        binding = FragmentRideDetailsBinding.inflate(inflater, container, false);
+
+        Bundle bundle = this.getArguments();
+        String code = bundle.getString("code");
+        String text = "Your lock code is " + code;
+        binding.lockTV.setText(text);
+
+        return binding.getRoot();
     }
 }

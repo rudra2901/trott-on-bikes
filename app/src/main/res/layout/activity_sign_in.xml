@@ -48,6 +48,20 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/forgotPassTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Forgot Password"
+        android:textColor="@color/link_text_selector"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:padding="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/submitBtnLinear"
+        app:layout_constraintStart_toStartOf="@+id/detailsLinear"
+        app:layout_constraintTop_toBottomOf="@+id/detailsLinear"
+        app:layout_constraintVertical_bias="0.0" />
+
     <LinearLayout
         android:id="@+id/submitBtnLinear"
         android:layout_width="wrap_content"

@@ -102,6 +102,27 @@ public class SignInActivity extends AppCompatActivity {
                 startActivity(new Intent(SignInActivity.this, SignUpActivity.class));
             }
         });
+
+        binding.forgotPassTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String email = binding.emailText.getText().toString();
+                if (email.isEmpty()) {
+                    binding.emailText.setError("Please provide your email");
+                    binding.emailText.requestFocus();
+                } else {
+                    mFirebaseAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful())
+                                Toast.makeText(SignInActivity.this, "Password Reset Email Sent", Toast.LENGTH_SHORT).show();
+                            else
+                                Toast.makeText(SignInActivity.this, "Could no sens email, Try again later", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            }
+        });
     }
     private void signInWithGoogle() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
