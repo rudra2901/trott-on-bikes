@@ -62,8 +62,7 @@ public class BikeActivity extends AppCompatActivity implements NavigationView.On
 
         BikeOptionFragment fragment = new BikeOptionFragment();
         Bundle bundle = new Bundle();
-        String id = bike.getId();
-        bundle.putString("id", id);
+        bundle.putParcelable("bike", bike);
         fragment.setArguments(bundle);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.btnFL, fragment).commit();

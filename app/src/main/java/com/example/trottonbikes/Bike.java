@@ -10,6 +10,7 @@ public class Bike implements Parcelable {
     float rating;
     String imgUrl;
     String code;
+    int booked;
 
     public Bike() {
         this.id = "bikeID";
@@ -19,9 +20,10 @@ public class Bike implements Parcelable {
         this.rating = 4;
         this.imgUrl = "@mipmap/bikestockimage.png";
         this.code = "1234";
+        this.booked = 0;
     }
 
-    public Bike(String id,String ownersName, String ownerAddress, String desc, float rating, String imgUrl, String code) {
+    public Bike(String id,String ownersName, String ownerAddress, String desc, float rating, String imgUrl, String code, int booked) {
         this.id = id;
         this.ownersName = ownersName;
         this.ownerAddress = ownerAddress;
@@ -29,6 +31,7 @@ public class Bike implements Parcelable {
         this.rating = rating;
         this.imgUrl = imgUrl;
         this.code = code;
+        this.booked = booked;
     }
 
     protected Bike(Parcel in) {
@@ -39,6 +42,7 @@ public class Bike implements Parcelable {
         rating = in.readFloat();
         imgUrl = in.readString();
         code = in.readString();
+        booked = in.readInt();
     }
 
     public static final Creator<Bike> CREATOR = new Creator<Bike>() {
@@ -109,6 +113,14 @@ public class Bike implements Parcelable {
         this.code = code;
     }
 
+    public int getBooked() {
+        return booked;
+    }
+
+    public void setBooked(int booked) {
+        this.booked = booked;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -123,5 +135,6 @@ public class Bike implements Parcelable {
         dest.writeFloat(rating);
         dest.writeString(imgUrl);
         dest.writeString(code);
+        dest.writeInt(booked);
     }
 }

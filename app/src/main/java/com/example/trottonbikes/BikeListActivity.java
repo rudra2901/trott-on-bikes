@@ -82,7 +82,8 @@ public class BikeListActivity extends AppCompatActivity implements NavigationVie
         binding.bikeListView.setLayoutManager(manager);
         binding.bikeListView.setAdapter(bikeAdapter);
 
-        Query query = db.collection("available").orderBy("id").limit(20);
+        Query query = db.collection("available").orderBy("id", Query.Direction.ASCENDING).
+                whereEqualTo("booked", 0).limit(20);
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -117,7 +118,8 @@ public class BikeListActivity extends AppCompatActivity implements NavigationVie
 
                             if(isScrolling && (current+scrolled == total) && !isLastItemReached) {
                                 binding.progressBarList.setVisibility(View.VISIBLE);
-                                Query nextQuery = db.collection("available").orderBy("id", Query.Direction.ASCENDING).startAfter(lastVisible).limit(20);
+                                Query nextQuery = db.collection("available").orderBy("id", Query.Direction.ASCENDING)
+                                        .whereEqualTo("booked", 0).startAfter(lastVisible).limit(20);
                                 nextQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                     @Override
                                     public void onComplete(@NonNull Task<QuerySnapshot> t) {
