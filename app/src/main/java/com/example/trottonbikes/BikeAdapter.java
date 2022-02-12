@@ -41,7 +41,6 @@ public class BikeAdapter extends RecyclerView.Adapter<BikeAdapter.ViewHolder> {
         holder.binding.ownernameTV.setText(currentBike.getOwnersName());
         holder.binding.ownerAddTV.setText(currentBike.getOwnerAddress());
         holder.binding.ratingBar.setRating(currentBike.getRating());
-        holder.binding.bikeListImage.setImageResource(R.mipmap.bikeimage);
 
         holder.binding.viewBikeBtn.setOnClickListener(v -> {
             Intent intent = new Intent(context, BikeActivity.class);
@@ -50,6 +49,11 @@ public class BikeAdapter extends RecyclerView.Adapter<BikeAdapter.ViewHolder> {
         });
         holder.binding.rideBikeBtn.setOnClickListener(v -> {
             Intent intent = new Intent(context, RideMapsActivity.class);
+            intent.putExtra("bike", currentBike);
+            context.startActivity(intent);
+        });
+        holder.binding.bookBikeBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(context, BikeBookedActivity.class);
             intent.putExtra("bike", currentBike);
             context.startActivity(intent);
         });
