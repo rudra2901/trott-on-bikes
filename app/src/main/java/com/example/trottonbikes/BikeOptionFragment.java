@@ -44,48 +44,38 @@ public class BikeOptionFragment extends Fragment {
         // View rootView = inflater.inflate(R.layout.fragment_bike_option, container, false);
 
         Bundle bundle = this.getArguments();
-        String id = bundle.getString("id");
+        Bike bike = bundle.getParcelable("bike");
         firestore = FirebaseFirestore.getInstance();
-        DocumentReference documentReference = firestore.collection("available").document(id);
+        DocumentReference documentReference = firestore.collection("available").document(bike.getId());
 
-        binding.fragmentButtonBook.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        if(documentSnapshot.exists()) {
-                            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.btnFL, new BikeBookFragment()).commit();
-                        }
-                        else {
-                            Toast.makeText(getActivity(), "Sorry! The bike has been already booked!", Toast.LENGTH_LONG).show();
-                            startActivity(new Intent(getContext(), BikeListActivity.class));
-                        }
-                    }
-                });
+        binding.fragmentButtonBook.setOnClickListener(v -> documentReference.get().addOnSuccessListener(documentSnapshot -> {
+            if(documentSnapshot.exists() && ((int)documentSnapshot.get("booked") == 0)) {
+
+                documentReference.update("booked", 1);
+                BikeBookFragment bikeBookFragment = new BikeBookFragment();
+                Bundle nextBundle = new Bundle();
+                nextBundle.putParcelable("bike", bike);
+                bikeBookFragment.setArguments(nextBundle);
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.btnFL, bikeBookFragment).commit();
             }
-        });
-        binding.fragmentButtonRide.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        if(documentSnapshot.exists()) {
-                            Bike currentBike = documentSnapshot.toObject(Bike.class);
-                            Intent intent = new Intent(getContext(), RideMapsActivity.class);
-                            intent.putExtra("bike", currentBike);
-                            startActivity(intent);
-                        }
-                        else {
-                            Toast.makeText(getActivity(), "Sorry! The bike has been already booked!", Toast.LENGTH_LONG).show();
-                            startActivity(new Intent(getContext(), BikeListActivity.class));
-                        }
-                    }
-                });
+            else {
+                Toast.makeText(getActivity(), "Sorry! The bike has been already booked!", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(getContext(), BikeListActivity.class));
             }
-        });
+        }));
+        binding.fragmentButtonRide.setOnClickListener(v -> documentReference.get().addOnSuccessListener(documentSnapshot -> {
+            if(documentSnapshot.exists()) {
+                documentReference.update("booked", 1);
+                Intent intent = new Intent(getContext(), RideMapsActivity.class);
+                intent.putExtra("bike", bike);
+                startActivity(intent);
+            }
+            else {
+                Toast.makeText(getActivity(), "Sorry! The bike has been already booked!", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(getContext(), BikeListActivity.class));
+            }
+        }));
 
         return binding.getRoot();
     }
