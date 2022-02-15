@@ -21,11 +21,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -37,12 +32,10 @@ import com.google.firebase.storage.UploadTask;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
-import java.util.UUID;
 
 public class RegisterBikeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     ActivityRegisterBikeBinding binding;
-    private DatabaseReference databaseReference;
     FirebaseStorage storage;
     StorageReference storageRef;
     FirebaseFirestore firestore;
@@ -67,8 +60,6 @@ public class RegisterBikeActivity extends AppCompatActivity implements Navigatio
         binding.navView.setNavigationItemSelectedListener(this);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        databaseReference = FirebaseDatabase.getInstance("https://learnfirebase-61b73-default-rtdb.asia-southeast1.firebasedatabase.app").
-                getReference("bikes");
         storage = FirebaseStorage.getInstance();
         storageRef = storage.getReference().child("bikes");
         firestore = FirebaseFirestore.getInstance();
@@ -106,10 +97,7 @@ public class RegisterBikeActivity extends AppCompatActivity implements Navigatio
 
                 float rating = 0.0f;
 
-                Bike bike = new Bike(id, ownersName, ownerAddress, desc, rating, imgUrl, code);
-
-                //TODO: Remove this to stop adding value to realtime database after showing data from firestore
-                databaseReference.child(id).setValue(bike);
+                Bike bike = new Bike(id, ownersName, ownerAddress, desc, rating, imgUrl, code, 0);
 
                 documentReference.set(bike).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -185,7 +173,7 @@ public class RegisterBikeActivity extends AppCompatActivity implements Navigatio
 
     // UploadImage method
     private String uploadImage(String bikeid) {
-        String url = "@mipmap/bikestockimage.png";
+        String url = "";
 
         if (filePath != null) {
             // Code for showing progressDialog while uploading

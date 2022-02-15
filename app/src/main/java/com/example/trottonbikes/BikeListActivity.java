@@ -1,11 +1,9 @@
 package com.example.trottonbikes;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,28 +12,16 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
-import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.trottonbikes.databinding.ActivityBikeListBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import org.jetbrains.annotations.NotNull;
@@ -82,8 +68,7 @@ public class BikeListActivity extends AppCompatActivity implements NavigationVie
         binding.bikeListView.setLayoutManager(manager);
         binding.bikeListView.setAdapter(bikeAdapter);
 
-        Query query = db.collection("available").orderBy("id", Query.Direction.ASCENDING).
-                whereEqualTo("booked", 0).limit(20);
+        Query query = db.collection("available").orderBy("id", Query.Direction.ASCENDING).whereEqualTo("booked", 0).limit(20);
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -118,8 +103,7 @@ public class BikeListActivity extends AppCompatActivity implements NavigationVie
 
                             if(isScrolling && (current+scrolled == total) && !isLastItemReached) {
                                 binding.progressBarList.setVisibility(View.VISIBLE);
-                                Query nextQuery = db.collection("available").orderBy("id", Query.Direction.ASCENDING)
-                                        .whereEqualTo("booked", 0).startAfter(lastVisible).limit(20);
+                                Query nextQuery = db.collection("available").orderBy("id", Query.Direction.ASCENDING).whereEqualTo("booked", 0).limit(20);
                                 nextQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                     @Override
                                     public void onComplete(@NonNull Task<QuerySnapshot> t) {

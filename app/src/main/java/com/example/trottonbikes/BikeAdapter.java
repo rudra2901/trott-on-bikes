@@ -59,6 +59,7 @@ public class BikeAdapter extends RecyclerView.Adapter<BikeAdapter.ViewHolder> {
         });
         holder.binding.rideBikeBtn.setOnClickListener(v -> documentReference.get().addOnSuccessListener(documentSnapshot -> {
             if(documentSnapshot.exists() && ((int)documentSnapshot.get("booked") == 0)) {
+                documentReference.update("booked", 1);
                 Intent intent = new Intent(context, RideMapsActivity.class);
                 intent.putExtra("bike", currentBike);
                 context.startActivity(intent);
@@ -70,6 +71,7 @@ public class BikeAdapter extends RecyclerView.Adapter<BikeAdapter.ViewHolder> {
         }));
         holder.binding.bookBikeBtn.setOnClickListener(v -> documentReference.get().addOnSuccessListener(documentSnapshot -> {
             if (documentSnapshot.exists() && ((int) documentSnapshot.get("booked") == 0)) {
+                documentReference.update("booked", 1);
                 Intent intent = new Intent(context, BikeBookedActivity.class);
                 intent.putExtra("bike", currentBike);
                 context.startActivity(intent);
