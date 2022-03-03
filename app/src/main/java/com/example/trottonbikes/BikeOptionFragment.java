@@ -49,7 +49,7 @@ public class BikeOptionFragment extends Fragment {
         DocumentReference documentReference = firestore.collection("available").document(bike.getId());
 
         binding.fragmentButtonBook.setOnClickListener(v -> documentReference.get().addOnSuccessListener(documentSnapshot -> {
-            if(documentSnapshot.exists() && ((int)documentSnapshot.get("booked") == 0)) {
+            if(documentSnapshot.exists() && ((Long)documentSnapshot.get("booked") == 0)) {
 
                 documentReference.update("booked", 1);
                 BikeBookFragment bikeBookFragment = new BikeBookFragment();
