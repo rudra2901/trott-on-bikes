@@ -8,6 +8,7 @@
 
   import com.example.trottonbikes.databinding.FragmentBikeBookBinding;
 
+  import androidx.annotation.NonNull;
   import androidx.fragment.app.Fragment;
 
   /**
@@ -60,16 +61,16 @@
       }
 
       @Override
-      public View onCreateView(LayoutInflater inflater, ViewGroup container,
+      public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                                Bundle savedInstanceState) {
           // Inflate the layout for this fragment
           binding = FragmentBikeBookBinding.inflate(inflater, container, false);
 
-          binding.bookBTN.setOnClickListener(new View.OnClickListener() {
-              @Override
-              public void onClick(View v) {
-                  startActivity(new Intent(getContext(), BikeBookedActivity.class));
-              }
+          binding.bookBTN.setOnClickListener(v -> {
+              int selectedTime = binding.radioGroup.getCheckedRadioButtonId();
+              Intent intent = new Intent(getContext(), BikeBookedActivity.class);
+              intent.putExtra("timecode", selectedTime);
+              startActivity(new Intent(getContext(), BikeBookedActivity.class));
           });
           return binding.getRoot();
       }
