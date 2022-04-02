@@ -7,6 +7,8 @@
   import android.view.ViewGroup;
 
   import com.example.trottonbikes.databinding.FragmentBikeBookBinding;
+  import com.google.firebase.firestore.DocumentReference;
+  import com.google.firebase.firestore.FirebaseFirestore;
 
   import androidx.annotation.NonNull;
   import androidx.fragment.app.Fragment;
@@ -16,9 +18,10 @@
    * Use the {@link BikeBookFragment#newInstance} factory method to
    * create an instance of this fragment.
    */
-  public class BikeBookFragment extends Fragment {
+  public class BikeBookFragment extends android.app.Fragment {
 
       FragmentBikeBookBinding binding;
+      FirebaseFirestore firestore;
 
       // TODO: Rename parameter arguments, choose names that match
       // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -66,12 +69,21 @@
           // Inflate the layout for this fragment
           binding = FragmentBikeBookBinding.inflate(inflater, container, false);
 
-          binding.bookBTN.setOnClickListener(v -> {
-              int selectedTime = binding.radioGroup.getCheckedRadioButtonId();
-              Intent intent = new Intent(getContext(), BikeBookedActivity.class);
-              intent.putExtra("timecode", selectedTime);
-              startActivity(new Intent(getContext(), BikeBookedActivity.class));
-          });
+          Bundle bundle = this.getArguments();
+          Bike bike = bundle.getParcelable("bike");
+          firestore = FirebaseFirestore.getInstance();
+          DocumentReference documentReference = firestore.collection("available").document(bike.getId());
+
+          binding.bookBTN.setOnClickListener(v -> documentReference.get().addOnSuccessListener(documentSnapshot -> {
+              if(documentSnapshot.exists() && ((Long)documentSnapshot.get("booked") == 0)) {
+                  int selectedTime = binding.radioGroup.getCheckedRadioButtonId();
+                  Intent intent = new Intent(getContext(), BikeBookedActivity.class);
+                  intent.putExtra("timecode", selectedTime);
+                  intent.putExtra("bike", bike);
+                  startActivity(new Intent(getContext(), BikeBookedActivity.class));
+              }
+          }));
+
           return binding.getRoot();
       }
   }

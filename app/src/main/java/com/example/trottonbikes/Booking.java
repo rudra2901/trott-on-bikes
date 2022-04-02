@@ -9,9 +9,10 @@ public class Booking {
     int bookingTime;
     long time;
 
-    public Booking(String bookingID, String user) {
+    public Booking(String bookingID, String user, int bookingTime) {
         this.bookingID = bookingID;
         this.user = user;
+        this.bookingTime = bookingTime;
     }
 
     public String getBookingID() {
