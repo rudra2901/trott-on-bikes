@@ -81,6 +81,8 @@
                   intent.putExtra("timecode", selectedTime);
                   intent.putExtra("bike", bike);
                   startActivity(new Intent(getContext(), BikeBookedActivity.class));
+
+                  //TODO : make a singleton class to get time from nist severs using apache commons net
               }
           }));
 
