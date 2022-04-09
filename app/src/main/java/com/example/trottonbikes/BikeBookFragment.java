@@ -77,12 +77,18 @@
           binding.bookBTN.setOnClickListener(v -> documentReference.get().addOnSuccessListener(documentSnapshot -> {
               if(documentSnapshot.exists() && ((Long)documentSnapshot.get("booked") == 0)) {
                   int selectedTime = binding.radioGroup.getCheckedRadioButtonId();
+                  long time = 0;
+                  try {
+                      time = TImeLookup.getInstance().getCurrTime();
+                  } catch (Exception e) {
+                      e.printStackTrace();
+                  }
+                  //TODO : make a singleton class to get time from nist severs using apache commons net
+                  Booking newBooking = new Booking("1", "user",selectedTime, time);
                   Intent intent = new Intent(getContext(), BikeBookedActivity.class);
                   intent.putExtra("timecode", selectedTime);
                   intent.putExtra("bike", bike);
-                  startActivity(new Intent(getContext(), BikeBookedActivity.class));
-
-                  //TODO : make a singleton class to get time from nist severs using apache commons net
+                  startActivity(intent);
               }
           }));
 

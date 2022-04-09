@@ -9,42 +9,30 @@ import java.sql.Time;
 import java.util.Date;
 
 public class TImeLookup {
-    private Date currTime;
     private static final String SERVER_NAME = "pool.ntp.org";
-    private volatile TimeInfo timeInfo;
-    private volatile Long offset;
 
     public static final TImeLookup instance = new TImeLookup();
+
     public static TImeLookup getInstance() {
         return instance;
     }
 
-    private TImeLookup() {}
+    private TImeLookup() {
+    }
 
-    public Date getCurrTime() throws Exception {
+    public long getCurrTime() throws Exception {
         NTPUDPClient client = new NTPUDPClient();
-        // We want to timeout if a response takes longer than 10 seconds
-        client.setDefaultTimeout(10_000);
+        // We want to timeout if a response takes longer than 5 seconds
+        client.setDefaultTimeout(5000);
+
+        // TODO: find a way to return epoch time instead of timestamp
 
         InetAddress inetAddress = InetAddress.getByName(SERVER_NAME);
         TimeInfo timeInfo = client.getTime(inetAddress);
-        timeInfo.computeDetails();
-        if (timeInfo.getOffset() != null) {
-            this.timeInfo = timeInfo;
-            this.offset = timeInfo.getOffset();
-        }
+        Date currTime = new Date(timeInfo.getMessage().getTransmitTimeStamp().getTime());
 
-        // Calculate the remote server NTP time
-        long currentTime = System.currentTimeMillis();
-        TimeStamp atomicNtpTime = TimeStamp.getNtpTime(currentTime + offset);
+        //client.close();
 
-        System.out.println("Atomic time:\t" + atomicNtpTime + "  " + atomicNtpTime.toDateString());
-
-        return currTime;
-    }
-
-    public boolean isComputed()
-    {
-        return timeInfo != null && offset != null;
+        return currTime.getTime();
     }
 }

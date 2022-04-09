@@ -79,6 +79,10 @@ public class BikeListActivity extends AppCompatActivity implements NavigationVie
                     }
                     bikeAdapter.notifyDataSetChanged();
 
+                    if(task.getResult().size() == 0) {
+                        Toast.makeText(BikeListActivity.this, "No bikes available currently! Please try again later", Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(BikeListActivity.this, NoBikeAvailableActivity.class));
+                    }
                     lastVisible = task.getResult().getDocuments().get(task.getResult().size() - 1);
                     if (task.getResult().size() < 20) {
                         isLastItemReached = true;
