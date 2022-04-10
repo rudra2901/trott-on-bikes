@@ -2,22 +2,20 @@ package com.example.trottonbikes;
 
 import org.apache.commons.net.ntp.NTPUDPClient;
 import org.apache.commons.net.ntp.TimeInfo;
-import org.apache.commons.net.ntp.TimeStamp;
 
 import java.net.InetAddress;
-import java.sql.Time;
 import java.util.Date;
 
-public class TImeLookup {
+public class TimeLookup {
     private static final String SERVER_NAME = "pool.ntp.org";
 
-    public static final TImeLookup instance = new TImeLookup();
+    public static final TimeLookup instance = new TimeLookup();
 
-    public static TImeLookup getInstance() {
+    public static TimeLookup getInstance() {
         return instance;
     }
 
-    private TImeLookup() {
+    private TimeLookup() {
     }
 
     public long getCurrTime() throws Exception {

@@ -5,10 +5,17 @@
   import android.view.LayoutInflater;
   import android.view.View;
   import android.view.ViewGroup;
+  import android.widget.Toast;
 
   import com.example.trottonbikes.databinding.FragmentBikeBookBinding;
+  import com.google.android.gms.tasks.OnSuccessListener;
+  import com.google.firebase.auth.FirebaseAuth;
+  import com.google.firebase.auth.FirebaseUser;
+  import com.google.firebase.firestore.CollectionReference;
   import com.google.firebase.firestore.DocumentReference;
   import com.google.firebase.firestore.FirebaseFirestore;
+
+  import java.util.Collection;
 
   import androidx.annotation.NonNull;
   import androidx.fragment.app.Fragment;
@@ -73,18 +80,30 @@
           Bike bike = bundle.getParcelable("bike");
           firestore = FirebaseFirestore.getInstance();
           DocumentReference documentReference = firestore.collection("available").document(bike.getId());
+          CollectionReference bookingReference = firestore.collection("booking");
 
           binding.bookBTN.setOnClickListener(v -> documentReference.get().addOnSuccessListener(documentSnapshot -> {
               if(documentSnapshot.exists() && ((Long)documentSnapshot.get("booked") == 0)) {
                   int selectedTime = binding.radioGroup.getCheckedRadioButtonId();
                   long time = 0;
-                  try {
-                      time = TImeLookup.getInstance().getCurrTime();
-                  } catch (Exception e) {
-                      e.printStackTrace();
-                  }
-                  //TODO : make a singleton class to get time from nist severs using apache commons net
-                  Booking newBooking = new Booking("1", "user",selectedTime, time);
+
+                  time = QueryUtils.getCurrentTime();
+                  DocumentReference bookDoc = bookingReference.document();
+                  String bookingID = bookingReference.getId();
+
+                  FirebaseAuth auth = FirebaseAuth.getInstance();
+                  FirebaseUser user = auth.getCurrentUser();
+                  String userName;
+                  assert user != null;
+                  userName = user.getDisplayName();
+
+                  Booking newBooking = new Booking(bookingID, userName,selectedTime, time);
+                  bookDoc.set(newBooking).addOnSuccessListener(new OnSuccessListener<Void>() {
+                      @Override
+                      public void onSuccess(Void unused) {
+                          Toast.makeText(getActivity(), "Booking Uploaded!", Toast.LENGTH_SHORT).show();
+                      }
+                  });
                   Intent intent = new Intent(getContext(), BikeBookedActivity.class);
                   intent.putExtra("timecode", selectedTime);
                   intent.putExtra("bike", bike);
