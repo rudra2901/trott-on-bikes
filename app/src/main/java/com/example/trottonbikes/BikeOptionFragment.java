@@ -51,7 +51,7 @@ public class BikeOptionFragment extends Fragment {
         binding.fragmentButtonBook.setOnClickListener(v -> documentReference.get().addOnSuccessListener(documentSnapshot -> {
             if(documentSnapshot.exists() && ((Long)documentSnapshot.get("booked") == 0)) {
 
-                documentReference.update("booked", 1);
+                //documentReference.update("booked", 1);
                 BikeBookFragment bikeBookFragment = new BikeBookFragment();
                 Bundle nextBundle = new Bundle();
                 nextBundle.putParcelable("bike", bike);
@@ -65,7 +65,7 @@ public class BikeOptionFragment extends Fragment {
             }
         }));
         binding.fragmentButtonRide.setOnClickListener(v -> documentReference.get().addOnSuccessListener(documentSnapshot -> {
-            if(documentSnapshot.exists()) {
+            if(documentSnapshot.exists() && ((Long)documentSnapshot.get("booked") == 0)) {
                 documentReference.update("booked", 1);
                 Intent intent = new Intent(getContext(), RideMapsActivity.class);
                 intent.putExtra("bike", bike);

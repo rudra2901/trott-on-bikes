@@ -85,11 +85,10 @@
           binding.bookBTN.setOnClickListener(v -> documentReference.get().addOnSuccessListener(documentSnapshot -> {
               if(documentSnapshot.exists() && ((Long)documentSnapshot.get("booked") == 0)) {
                   int selectedTime = binding.radioGroup.getCheckedRadioButtonId();
-                  long time = 0;
+                  long time = QueryUtils.getCurrentTime();
 
-                  time = QueryUtils.getCurrentTime();
                   DocumentReference bookDoc = bookingReference.document();
-                  String bookingID = bookingReference.getId();
+                  String bookingID = bookDoc.getId();
 
                   FirebaseAuth auth = FirebaseAuth.getInstance();
                   FirebaseUser user = auth.getCurrentUser();
@@ -97,13 +96,15 @@
                   assert user != null;
                   userName = user.getDisplayName();
 
-                  Booking newBooking = new Booking(bookingID, userName,selectedTime, time);
+                  Booking newBooking = new Booking(bookingID, userName, selectedTime, time);
                   bookDoc.set(newBooking).addOnSuccessListener(new OnSuccessListener<Void>() {
                       @Override
                       public void onSuccess(Void unused) {
                           Toast.makeText(getActivity(), "Booking Uploaded!", Toast.LENGTH_SHORT).show();
                       }
                   });
+
+                  documentReference.update("booked", 1);
                   Intent intent = new Intent(getContext(), BikeBookedActivity.class);
                   intent.putExtra("timecode", selectedTime);
                   intent.putExtra("bike", bike);
