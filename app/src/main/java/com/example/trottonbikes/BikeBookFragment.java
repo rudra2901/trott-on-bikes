@@ -7,6 +7,10 @@
   import android.view.ViewGroup;
   import android.widget.Toast;
 
+  import com.android.volley.Request;
+  import com.android.volley.Response;
+  import com.android.volley.VolleyError;
+  import com.android.volley.toolbox.JsonObjectRequest;
   import com.example.trottonbikes.databinding.FragmentBikeBookBinding;
   import com.google.android.gms.tasks.OnSuccessListener;
   import com.google.firebase.auth.FirebaseAuth;
@@ -14,6 +18,9 @@
   import com.google.firebase.firestore.CollectionReference;
   import com.google.firebase.firestore.DocumentReference;
   import com.google.firebase.firestore.FirebaseFirestore;
+
+  import org.json.JSONException;
+  import org.json.JSONObject;
 
   import java.util.Collection;
 
@@ -29,6 +36,7 @@
 
       FragmentBikeBookBinding binding;
       FirebaseFirestore firestore;
+      long time = 0;
 
       // TODO: Rename parameter arguments, choose names that match
       // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -85,7 +93,8 @@
           binding.bookBTN.setOnClickListener(v -> documentReference.get().addOnSuccessListener(documentSnapshot -> {
               if(documentSnapshot.exists() && ((Long)documentSnapshot.get("booked") == 0)) {
                   int selectedTime = binding.radioGroup.getCheckedRadioButtonId();
-                  long time = QueryUtils.getCurrentTime();
+                  //long time = QueryUtils.getCurrentTime();
+                  time = getCurrentTime();
 
                   DocumentReference bookDoc = bookingReference.document();
                   String bookingID = bookDoc.getId();
@@ -97,12 +106,7 @@
                   userName = user.getDisplayName();
 
                   Booking newBooking = new Booking(bookingID, userName, selectedTime, time);
-                  bookDoc.set(newBooking).addOnSuccessListener(new OnSuccessListener<Void>() {
-                      @Override
-                      public void onSuccess(Void unused) {
-                          Toast.makeText(getActivity(), "Booking Uploaded!", Toast.LENGTH_SHORT).show();
-                      }
-                  });
+                  bookDoc.set(newBooking).addOnSuccessListener(unused -> Toast.makeText(getActivity(), "Booking Uploaded!", Toast.LENGTH_SHORT).show());
 
                   documentReference.update("booked", 1);
                   Intent intent = new Intent(getContext(), BikeBookedActivity.class);
@@ -113,5 +117,18 @@
           }));
 
           return binding.getRoot();
+      }
+
+      public long getCurrentTime() {
+          String url = "http://worldtimeapi.org/api/timezone/Asia/Kolkata";
+          JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
+              try {
+                  time = response.getLong("timeunix");
+              } catch (JSONException e) {
+                  e.printStackTrace();
+              }
+          }, error -> Toast.makeText(getActivity(), "Error Getting Time!", Toast.LENGTH_SHORT).show());
+
+          return time;
       }
   }
