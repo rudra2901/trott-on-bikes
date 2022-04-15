@@ -56,10 +56,11 @@ public class BikeBookedActivity extends AppCompatActivity {
         //int bookTime = getIntent().getIntExtra("bookingTime", 0);
 
         TimeRemainingFragment fragment = new TimeRemainingFragment();
-        //Bundle bundle = new Bundle();
+        Bundle bundle = new Bundle();
         //bundle.putInt("timecode", code);
         //bundle.putLong("bookingTime", bookTime);
-        //fragment.setArguments(bundle);
+        bundle.putParcelable("bike", bike);
+        fragment.setArguments(bundle);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.bookTimeFL, fragment).commit();
     }

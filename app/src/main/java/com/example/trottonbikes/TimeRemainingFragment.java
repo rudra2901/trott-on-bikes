@@ -17,6 +17,8 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.trottonbikes.databinding.FragmentTimeRemainingBinding;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.json.JSONException;
 
@@ -29,6 +31,7 @@ import java.text.NumberFormat;
 public class TimeRemainingFragment extends Fragment {
 
     FragmentTimeRemainingBinding binding;
+    FirebaseFirestore firestore;
     long currTime;
 
     public TimeRemainingFragment() {
@@ -53,6 +56,9 @@ public class TimeRemainingFragment extends Fragment {
         sharedPreferences.getLong("timeBooked", timeBooked);
         sharedPreferences.getLong("timeCode", timeSelected);
 
+        Bundle bundle = this.getArguments();
+        Bike bike = bundle.getParcelable("bike");
+
         currTime = getCurrentTime();
 
         long timeLeft = (timeBooked + timeSelected) - currTime;
@@ -69,6 +75,9 @@ public class TimeRemainingFragment extends Fragment {
             }
             // When the task is over it will print 00:00:00 there
             public void onFinish() {
+                firestore = FirebaseFirestore.getInstance();
+                DocumentReference documentReference = firestore.collection("available").document(bike.getId());
+                documentReference.update("booked", 0);
                 binding.timeShowText.setText("00:00:00");
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.bookTimeFL, new TimeOverFragment()).commit();
