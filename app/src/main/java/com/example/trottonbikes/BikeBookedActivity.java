@@ -4,6 +4,8 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 
@@ -48,8 +50,17 @@ public class BikeBookedActivity extends AppCompatActivity {
         FirebaseUser user = auth.getCurrentUser();
         String userId = user.getUid();
 
+        SharedPreferences sharedPreferences = getSharedPreferences("booking", Context.MODE_PRIVATE);
 
+        //int code = getIntent().getIntExtra("timecode", 0);
+        //int bookTime = getIntent().getIntExtra("bookingTime", 0);
+
+        TimeRemainingFragment fragment = new TimeRemainingFragment();
+        //Bundle bundle = new Bundle();
+        //bundle.putInt("timecode", code);
+        //bundle.putLong("bookingTime", bookTime);
+        //fragment.setArguments(bundle);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.bookTimeFL, new TimeRemainingFragment()).commit();
+        fragmentTransaction.add(R.id.bookTimeFL, fragment).commit();
     }
 }

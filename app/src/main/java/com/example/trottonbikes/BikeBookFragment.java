@@ -1,10 +1,13 @@
    package com.example.trottonbikes;
 
+  import android.content.Context;
   import android.content.Intent;
+  import android.content.SharedPreferences;
   import android.os.Bundle;
   import android.view.LayoutInflater;
   import android.view.View;
   import android.view.ViewGroup;
+  import android.widget.RadioButton;
   import android.widget.Toast;
 
   import com.android.volley.Request;
@@ -18,6 +21,7 @@
   import com.google.firebase.firestore.CollectionReference;
   import com.google.firebase.firestore.DocumentReference;
   import com.google.firebase.firestore.FirebaseFirestore;
+  import com.google.gson.Gson;
 
   import org.json.JSONException;
   import org.json.JSONObject;
@@ -92,7 +96,7 @@
 
           binding.bookBTN.setOnClickListener(v -> documentReference.get().addOnSuccessListener(documentSnapshot -> {
               if(documentSnapshot.exists() && ((Long)documentSnapshot.get("booked") == 0)) {
-                  int selectedTime = binding.radioGroup.getCheckedRadioButtonId();
+                  long selectedTime = getSelectedTime();
                   //long time = QueryUtils.getCurrentTime();
                   time = getCurrentTime();
 
@@ -110,8 +114,19 @@
 
                   documentReference.update("booked", 1);
                   Intent intent = new Intent(getContext(), BikeBookedActivity.class);
-                  intent.putExtra("timecode", selectedTime);
+                  //intent.putExtra("timecode", selectedTime);
+                  //intent.putExtra("bookingTime", time);
                   intent.putExtra("bike", bike);
+
+                  SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("booking", Context.MODE_PRIVATE);
+                  SharedPreferences.Editor prefEditor = sharedPreferences.edit();
+                  Gson gson = new Gson();
+                  String json = gson.toJson(newBooking);
+                  prefEditor.putString("booking", json);
+                  prefEditor.putBoolean("hasBooked", true);
+                  prefEditor.putLong("timeCode", selectedTime);
+                  prefEditor.putLong("timeBooked", time);
+                  prefEditor.commit();
                   startActivity(intent);
               }
           }));
@@ -130,5 +145,24 @@
           }, error -> Toast.makeText(getActivity(), "Error Getting Time!", Toast.LENGTH_SHORT).show());
 
           return time;
+      }
+
+      public long getSelectedTime() {
+          int id = binding.radioGroup.getCheckedRadioButtonId();
+          RadioButton selectedButton = binding.radioGroup.findViewById(id);
+
+          int x = binding.radioGroup.indexOfChild(selectedButton);
+          switch (x) {
+              case 0 :
+                  return (15*60*1000);
+              case 1 :
+                  return (30*60*1000);
+              case 2 :
+                  return (60*60*1000);
+              case 3 :
+                  return (90*60*1000);
+          }
+
+          return 0;
       }
   }

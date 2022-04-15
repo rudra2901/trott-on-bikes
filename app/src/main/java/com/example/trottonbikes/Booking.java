@@ -6,10 +6,10 @@ import java.util.Date;
 
 public class Booking {
     String bookingID, user;
-    int bookingTime;
+    long bookingTime;
     long time;
 
-    public Booking(String bookingID, String user, int bookingTime, long time) {
+    public Booking(String bookingID, String user, long bookingTime, long time) {
         this.bookingID = bookingID;
         this.user = user;
         this.bookingTime = bookingTime;
@@ -40,7 +40,7 @@ public class Booking {
         this.time = time;
     }
 
-    public int getBookingTime() {
+    public long getBookingTime() {
         return bookingTime;
     }
 

@@ -20,21 +20,25 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <RadioButton
+            android:id="@+id/quarter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="15 min" />
 
         <RadioButton
+            android:id="@+id/half"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="30 min" />
 
         <RadioButton
+            android:id="@+id/full"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1 hr" />
 
         <RadioButton
+            android:id="@+id/three"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1.5 hr" />
