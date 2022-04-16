@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 public class PaymentDetailsActivity extends AppCompatActivity {
 
-    //TODO: fix ui
+    //TODO: fix ui && update details from last page
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
