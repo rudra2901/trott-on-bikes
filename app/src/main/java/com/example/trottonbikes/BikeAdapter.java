@@ -58,7 +58,7 @@ public class BikeAdapter extends RecyclerView.Adapter<BikeAdapter.ViewHolder> {
             context.startActivity(intent);
         });
         holder.binding.rideBikeBtn.setOnClickListener(v -> documentReference.get().addOnSuccessListener(documentSnapshot -> {
-            if(documentSnapshot.exists() && ((int)documentSnapshot.get("booked") == 0)) {
+            if(documentSnapshot.exists() && ((Long)documentSnapshot.get("booked") == 0)) {
                 documentReference.update("booked", 1);
                 Intent intent = new Intent(context, RideMapsActivity.class);
                 intent.putExtra("bike", currentBike);
@@ -70,10 +70,11 @@ public class BikeAdapter extends RecyclerView.Adapter<BikeAdapter.ViewHolder> {
             }
         }));
         holder.binding.bookBikeBtn.setOnClickListener(v -> documentReference.get().addOnSuccessListener(documentSnapshot -> {
-            if (documentSnapshot.exists() && ((int) documentSnapshot.get("booked") == 0)) {
+            if (documentSnapshot.exists() && ((Long) documentSnapshot.get("booked") == 0)) {
                 documentReference.update("booked", 1);
                 Intent intent = new Intent(context, BikeBookedActivity.class);
                 intent.putExtra("bike", currentBike);
+                intent.putExtra("timecode", 1);
                 context.startActivity(intent);
             } else {
                 Toast.makeText(context, "Sorry! The bike has been already booked!", Toast.LENGTH_LONG).show();

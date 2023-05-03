@@ -1,10 +1,10 @@
   package com.example.trottonbikes;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,14 +49,14 @@ public class BikeOptionFragment extends Fragment {
         DocumentReference documentReference = firestore.collection("available").document(bike.getId());
 
         binding.fragmentButtonBook.setOnClickListener(v -> documentReference.get().addOnSuccessListener(documentSnapshot -> {
-            if(documentSnapshot.exists() && ((int)documentSnapshot.get("booked") == 0)) {
+            if(documentSnapshot.exists() && ((Long)documentSnapshot.get("booked") == 0)) {
 
-                documentReference.update("booked", 1);
+                //documentReference.update("booked", 1);
                 BikeBookFragment bikeBookFragment = new BikeBookFragment();
                 Bundle nextBundle = new Bundle();
                 nextBundle.putParcelable("bike", bike);
                 bikeBookFragment.setArguments(nextBundle);
-                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                FragmentTransaction fragmentTransaction = getActivity().getFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.btnFL, bikeBookFragment).commit();
             }
             else {
@@ -65,7 +65,7 @@ public class BikeOptionFragment extends Fragment {
             }
         }));
         binding.fragmentButtonRide.setOnClickListener(v -> documentReference.get().addOnSuccessListener(documentSnapshot -> {
-            if(documentSnapshot.exists()) {
+            if(documentSnapshot.exists() && ((Long)documentSnapshot.get("booked") == 0)) {
                 documentReference.update("booked", 1);
                 Intent intent = new Intent(getContext(), RideMapsActivity.class);
                 intent.putExtra("bike", bike);

@@ -43,16 +43,17 @@
             android:paddingVertical="10dp">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.7"
                 android:text="You booked for "
                 android:textStyle="bold" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/bookedTimeTV"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.2"
+                android:layout_weight="0.3"
                 android:gravity="end"
                 android:text="xx:yy:zz"
                 android:textColor="@color/blue_actionbar"
@@ -68,16 +69,17 @@
             android:paddingVertical="10dp">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.7"
                 android:text="You rode for "
                 android:textStyle="bold" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/rideTimeTV"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.2"
+                android:layout_weight="0.3"
                 android:gravity="end"
                 android:text="xx:yy:zz"
                 android:textColor="@color/blue_actionbar"
@@ -94,18 +96,18 @@
             android:paddingVertical="10dp">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.7"
                 android:text="You paused for "
                 android:textStyle="bold" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.2"
+                android:layout_weight="0.3"
                 android:gravity="end"
-                android:text="xx:yy:zz"
+                android:text="00:00:00"
                 android:textColor="@color/blue_actionbar"
                 android:textStyle="bold" />
 
@@ -119,18 +121,18 @@
             android:paddingVertical="10dp">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.7"
                 android:text="Total amount payable "
                 android:textStyle="bold" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.2"
+                android:layout_weight="0.3"
                 android:gravity="end"
-                android:text="xx:yy:zz"
+                android:text="xyzxyz"
                 android:textColor="@color/blue_actionbar"
                 android:textStyle="bold" />
 

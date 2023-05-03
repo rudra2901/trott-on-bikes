@@ -3,6 +3,7 @@ package com.example.trottonbikes;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,6 +12,9 @@ import android.window.SplashScreen;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.io.IOException;
+
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -27,10 +31,11 @@ public class SplashActivity extends AppCompatActivity {
         actionBar.hide();
         setContentView(R.layout.activity_splash);
 
+
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        if(currentUser == null)
+        if (currentUser == null)
             startActivity(new Intent(SplashActivity.this, SignUpActivity.class));
         else
             startActivity(new Intent(SplashActivity.this, BikeListActivity.class));
@@ -47,4 +52,5 @@ public class SplashActivity extends AppCompatActivity {
         }, SPLASH_SCREEN_TIME_OUT);
          */
     }
+
 }
