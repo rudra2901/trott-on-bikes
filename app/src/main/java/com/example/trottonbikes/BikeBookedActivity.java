@@ -52,13 +52,13 @@ public class BikeBookedActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences("booking", Context.MODE_PRIVATE);
 
-        //int code = getIntent().getIntExtra("timecode", 0);
-        //int bookTime = getIntent().getIntExtra("bookingTime", 0);
+        long code = getIntent().getLongExtra("timecode", 0);
+        long bookTime = getIntent().getLongExtra("bookingTime", 0);
 
         TimeRemainingFragment fragment = new TimeRemainingFragment();
         Bundle bundle = new Bundle();
-        //bundle.putInt("timecode", code);
-        //bundle.putLong("bookingTime", bookTime);
+        bundle.putLong("timecode", code);
+        bundle.putLong("bookingTime", bookTime);
         bundle.putParcelable("bike", bike);
         fragment.setArguments(bundle);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();

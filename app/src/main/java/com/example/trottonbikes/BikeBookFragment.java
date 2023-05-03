@@ -11,11 +11,10 @@
   import android.widget.Toast;
 
   import com.android.volley.Request;
-  import com.android.volley.Response;
-  import com.android.volley.VolleyError;
+  import com.android.volley.RequestQueue;
   import com.android.volley.toolbox.JsonObjectRequest;
+  import com.android.volley.toolbox.Volley;
   import com.example.trottonbikes.databinding.FragmentBikeBookBinding;
-  import com.google.android.gms.tasks.OnSuccessListener;
   import com.google.firebase.auth.FirebaseAuth;
   import com.google.firebase.auth.FirebaseUser;
   import com.google.firebase.firestore.CollectionReference;
@@ -24,9 +23,6 @@
   import com.google.gson.Gson;
 
   import org.json.JSONException;
-  import org.json.JSONObject;
-
-  import java.util.Collection;
 
   import androidx.annotation.NonNull;
   import androidx.fragment.app.Fragment;
@@ -40,7 +36,7 @@
 
       FragmentBikeBookBinding binding;
       FirebaseFirestore firestore;
-      long time = 0;
+      long time;
 
       // TODO: Rename parameter arguments, choose names that match
       // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -98,7 +94,9 @@
               if(documentSnapshot.exists() && ((Long)documentSnapshot.get("booked") == 0)) {
                   long selectedTime = getSelectedTime();
                   //long time = QueryUtils.getCurrentTime();
-                  time = getCurrentTime();
+                  //getCurrentTime();
+                  //Using system time instead of other methods.
+                  time = System.currentTimeMillis();
 
                   DocumentReference bookDoc = bookingReference.document();
                   String bookingID = bookDoc.getId();
@@ -114,8 +112,8 @@
 
                   documentReference.update("booked", 1);
                   Intent intent = new Intent(getContext(), BikeBookedActivity.class);
-                  //intent.putExtra("timecode", selectedTime);
-                  //intent.putExtra("bookingTime", time);
+                  intent.putExtra("timecode", selectedTime);
+                  intent.putExtra("bookingTime", time);
                   intent.putExtra("bike", bike);
 
                   SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("booking", Context.MODE_PRIVATE);
@@ -134,17 +132,22 @@
           return binding.getRoot();
       }
 
-      public long getCurrentTime() {
+      public void getCurrentTime() {
+          RequestQueue requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
+          requestQueue.start();
+
           String url = "http://worldtimeapi.org/api/timezone/Asia/Kolkata";
           JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
+              //Toast.makeText(getActivity(), "Inside response", Toast.LENGTH_SHORT).show();
               try {
-                  time = response.getLong("timeunix");
+                  time = response.getLong("unixtime");
               } catch (JSONException e) {
                   e.printStackTrace();
               }
           }, error -> Toast.makeText(getActivity(), "Error Getting Time!", Toast.LENGTH_SHORT).show());
 
-          return time;
+          requestQueue.add(jsonObjectRequest);
+          //return time;
       }
 
       public long getSelectedTime() {

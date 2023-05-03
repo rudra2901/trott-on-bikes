@@ -53,15 +53,19 @@ public class TimeRemainingFragment extends Fragment {
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("booking", Context.MODE_PRIVATE);
 
         long timeBooked = 0, timeSelected = 0;
-        sharedPreferences.getLong("timeBooked", timeBooked);
-        sharedPreferences.getLong("timeCode", timeSelected);
+        //sharedPreferences.getLong("timeBooked", timeBooked);
+        //sharedPreferences.getLong("timeCode", timeSelected);
 
         Bundle bundle = this.getArguments();
         Bike bike = bundle.getParcelable("bike");
+        timeBooked = bundle.getLong("bookingTime");
+        timeSelected = bundle.getLong("timecode");
 
-        currTime = getCurrentTime();
+        //currTime = getCurrentTime();
+        currTime = System.currentTimeMillis();
 
         long timeLeft = (timeBooked + timeSelected) - currTime;
+        final long[] timeBilled = {0};
         // Time is in millisecond so 50sec = 50000 I have used
         // countdown Interval is 1sec = 1000 I have used
         new CountDownTimer(timeLeft, 1000) {
@@ -72,6 +76,7 @@ public class TimeRemainingFragment extends Fragment {
                 long min = (millisUntilFinished / 60000) % 60;
                 long sec = (millisUntilFinished / 1000) % 60;
                 binding.timeShowText.setText(f.format(hour) + ":" + f.format(min) + ":" + f.format(sec));
+                timeBilled[0] += 1000;
             }
             // When the task is over it will print 00:00:00 there
             public void onFinish() {
@@ -83,6 +88,13 @@ public class TimeRemainingFragment extends Fragment {
                 fragmentTransaction.replace(R.id.bookTimeFL, new TimeOverFragment()).commit();
             }
         }.start();
+
+        binding.rideButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //todo: figure out the mechanism for transferring booked time before cancelling
+            }
+        });
 
         return binding.getRoot();
     }
